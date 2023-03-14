@@ -5,22 +5,15 @@ import Support from './components/Support/Support'
 import Search from './components/Search/Search'
 import Info from './components/Info/Info'
 import Lounge from './components/Lounge/Lounge'
-import Traveler from './components/Travelers/Traveler'
-import Subscriber from './components/Subscribers/Subscriber'
-import Footer from './components/Footer/Footer'
+import Booking from './components/BookingForm'
+import { Route, Routes } from 'react-router'
 
 const App = () => {
   return (
     <div>
-      <Navbar/>
-      {/* <Home/>
-      <Search/>
-      <Support/>
-      <Info/>
-      <Lounge/>
-      <Traveler/>
-      <Subscriber/>
-      <Footer/> */}
+    <Routes>
+				<Route index path='/' element={<Booking/>} />
+			</Routes>
     </div>
   )
 }

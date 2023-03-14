@@ -5,12 +5,12 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Spartan',sans-serif;
-
+    
 }
 
 :root{
     --PrimaryColor: hsl(225,50%,48%);
-    --SecondaryColor: hsl(180,17%,95%);
+    --SecondaryColor: #a2dceef3;
     --colorOne: hsl(15,74%,70%);
     --colorTwo: hsl(28,100%,82%);
     --HoverColor: hsl(225,56%,59%);
@@ -124,5 +124,82 @@ h2{
         justify-content: space-between;
         padding: 1rem;
         width: 100%;
+    }
+
+    .navBarMenu {
+        background-color: rebeccapurple;
+    }
+
+    .navBarOne{
+        background: var(--SecondaryColor);
+
+        .icon:hover{
+            color: var(--PrimaryColor);
+        }
+        
+        .atb{
+            gap: 1rem;
+
+            span{
+                color: var(--backColor);
+                font-size: 13px;
+                cursor: pointer;
+
+                &:hover{
+                    color: var(--PrimaryColor);
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    .navBarTwo{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        top: 3rem;
+        padding: 1.5rem 1rem;
+        position: fixed;
+        transition: .3s ease-in-out;
+
+        .logoDiv{
+            .logo{
+                width: 20%;
+            }
+        }
+
+        @media only screen and (max-width: 400px) {
+            .navBarMenu{
+                background: var(--SecondaryColor);
+                padding: 1.5rem;
+                border-radius: 10px;
+                top: 5rem;
+                right: 50%;
+                width: 80%;
+                transform: translateX(50%);
+                z-index: 2000;
+                box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05)
+                0px 4px 6px -2px;
+                border: 3px solid --whiteColor;
+                transition: .4s ease-in-out;
+
+                .menu{
+                    flex-direction: column;
+                    gap: .5rem;
+                    text-align: center;
+
+                    .listItem{
+                        padding: .5rem 0;
+                        cursor: pointer;
+                        color: var(--backColor);
+
+                        &:hover{
+                            color: var(--PrimaryColor);
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
