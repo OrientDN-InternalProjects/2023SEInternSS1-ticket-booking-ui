@@ -8,6 +8,7 @@ import '../../main.scss'
 import pxfuel from '../../assets/pxfuel.jpg'
 const Navbar = ({ children }) => {
   return (
+    
     <div className='navBar flex'>
       <div className='navBarOne flex'>
         <div>
@@ -23,10 +24,7 @@ const Navbar = ({ children }) => {
         </div>
       </div>
 
-      <div className='navBarTwo flex'>
-        <div className="logoDiv">
-          <img src={pxfuel} className='Logo' />
-        </div>
+      <div className='navBarTwo'>
         {children}
       </div>
       

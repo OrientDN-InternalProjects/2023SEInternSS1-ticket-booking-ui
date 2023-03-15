@@ -6,6 +6,7 @@ import Search from './components/Search/Search'
 import Info from './components/Info/Info'
 import Lounge from './components/Lounge/Lounge'
 import Booking from './components/BookingForm'
+import ContactForm from './components/ContactDetail/ContactForm'
 import { Route, Routes } from 'react-router'
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
     <div>
     <Routes>
 				<Route index path='/' element={<Booking/>} />
+				<Route path='/contact-detail' element={<ContactForm/>} />
 			</Routes>
     </div>
   )
