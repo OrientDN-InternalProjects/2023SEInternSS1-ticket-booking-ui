@@ -18,17 +18,21 @@ const Navbar = ({ children }) => {
                 <span class="line line3"></span>
             </div>
             <ul class="menu-items">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/list-flight">List Flight</a></li>
                 <li><a href="#">Sign In</a></li>
                 <li><a href="#">Sign Up</a></li>
             </ul>
             <h1 class="logo">Booking Flight</h1>
         </div>
     </div>
-    <div>
-    { children }
-    </div>
+    <div className='navBarTwo flex'>
+        <div className="logoDiv">
+          <img src={pxfuel} className='Logo' />
+          {children}
+        </div>
+        
+      </div>
    
     </div>
   )
