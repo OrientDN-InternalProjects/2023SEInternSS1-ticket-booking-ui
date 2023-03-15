@@ -23,7 +23,7 @@ const Navbar = ({ children }) => {
                 <li><a href="#">Sign In</a></li>
                 <li><a href="#">Sign Up</a></li>
             </ul>
-            <h1 class="logo">Booking Flight</h1>
+            <h1 class="logo"><img src="https://img.icons8.com/external-justicon-lineal-color-justicon/64/null/external-flight-mode-notifications-justicon-lineal-color-justicon.png"/>Booking Flight</h1>
         </div>
     </div>
     <div className='navBarTwo flex'>

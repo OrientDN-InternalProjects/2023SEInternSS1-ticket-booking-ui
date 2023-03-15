@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../components/BookingForm/booking.css'
 import {useState,useEffect, Fragment } from 'react'
+import { Container} from 'react-bootstrap';
 const Booking = () => {
     const [boxvalue, setBoxvalue] = useState([])
     useEffect(()=>{
@@ -12,11 +13,11 @@ const Booking = () => {
     },[])
     console.log("result",boxvalue)
   return (
-    <div class="container" >
+    <Container>
     <div class="card p-4 mt-5" >
         <div class="row g-3">
             <div class="col-12 mb-4">
-                <h4>Flight Booking</h4>
+                <h4 class='text-center mt-10'>Flight Booking<img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-search-airport-kiranshastry-gradient-kiranshastry.png"/></h4>
                 <span class="text-muted">Have chill with your flight</span>
             </div>
             <div class="col-12">
@@ -68,7 +69,7 @@ const Booking = () => {
             </div>
         </div>
     </div>
-</div>
+</Container>
   )
 }
 
