@@ -1,10 +1,5 @@
 import React from 'react'
-import Home from './components/Home/Home'
-import Navbar from './components/Navbar/Navbar'
-import Support from './components/Support/Support'
-import Search from './components/Search/Search'
-import Info from './components/Info/Info'
-import Lounge from './components/Lounge/Lounge'
+import ListFlight from './pages/ListFlight/ListFlight'
 import Booking from './components/BookingForm'
 import ContactForm from './components/ContactDetail/ContactForm'
 import { Route, Routes } from 'react-router'
@@ -15,6 +10,7 @@ const App = () => {
     <Routes>
 				<Route index path='/' element={<Booking/>} />
 				<Route path='/contact-detail' element={<ContactForm/>} />
+				<Route index path='/list-flight' element={<ListFlight/>} />
 			</Routes>
     </div>
   )
