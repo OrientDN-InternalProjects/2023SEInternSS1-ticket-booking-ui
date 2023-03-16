@@ -1,9 +1,15 @@
 import React from 'react'
 import '../../components/BookingForm/booking.css'
 import {useState,useEffect, Fragment } from 'react'
-import { Container} from 'react-bootstrap';
-const Booking = () => {
+import { Container} from 'react-bootstrap'
+import {useNavigate} from 'react-router-dom'
+const Booking = ({setResponse}) => {
     const [boxvalue, setBoxvalue] = useState([])
+    const [departAirport, setDepartAirport] = useState('')
+    const [arrivalAirport, setArrivalAirport] = useState('')
+    const [dateDepart, setDateDepart] = useState('')
+    const [test, setTest] = useState([])
+    const navigate = useNavigate()
     useEffect(()=>{
         (async () => {
             let result =  await fetch("https://localhost:7089/api/Airport/airports");
@@ -11,9 +17,36 @@ const Booking = () => {
             setBoxvalue(result.result)
         })()
     },[])
+    const dataSubmit ={
+        departAirport,
+        arrivalAirport,
+        dateDepart
+    }
+    console.log(dataSubmit)
+    const handleFormSubmit = async (event) =>{
+        event.preventDefault()
+        let result =  await fetch(`https://localhost:7089/api/FlightControllers/GetflightByRequest?DepartCode=${dataSubmit.departAirport}&ArrivalCode=${dataSubmit.arrivalAirport}&DepartDate=${dataSubmit.dateDepart}`,
+        {
+            method:'GET'
+        })
+        result = await result.json()
+        if(result.isError === true) {
+            alert("error")
+            navigate("/")
+        }
+        else
+        {
+            setTest(result.result)
+            setResponse(dataSubmit)
+            navigate('/list-search')
+        }
+        }
+    
     console.log("result",boxvalue)
+    console.log("result2",test)
   return (
     <Container>
+        <form onSubmit={handleFormSubmit}>
     <div class="card p-4 mt-5" >
         <div class="row g-3">
             <div class="col-12 mb-4">
@@ -32,7 +65,7 @@ const Booking = () => {
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="form-floating">
-                    <select name="country" className="form-control" onChange={(e)=>handlecountry(e)}>
+                    <select name="depart" className="form-control" onChange={(event) =>setDepartAirport(event.target.value)}>
                    <option>--Select Depart Airport--</option>
                    {
                      boxvalue.map( (getcon)=>(
@@ -46,7 +79,7 @@ const Booking = () => {
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="form-floating">
-                <select name="country" className="form-control" onChange={(e)=>handlecountry(e)}>
+                <select name="arrival" className="form-control" onChange={(event) =>setArrivalAirport(event.target.value)}>
                    <option>--Select Arival Airport--</option>
                    {
                      boxvalue.map( (getcon)=>(
@@ -60,15 +93,16 @@ const Booking = () => {
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="form-floating">
-                    <input type="date" class="form-control" placeholder="DEPARTING"/>
+                    <input type="date" class="form-control" placeholder="DEPARTING" onChange={(event) =>setDateDepart(event.target.value)}/>
                     <label>DEPARTING</label>
                 </div>
             </div>
             <div class="col-12 mt-4">
-                <button class="btn btn-primary text-uppercase" type="button">SHOWN FLIGHTS<i class="fa fa-plane ms-3"></i></button>
+                <button class="btn btn-primary text-uppercase" type="submit">SHOWN FLIGHTS<i class="fa fa-plane ms-3"></i></button>
             </div>
         </div>
     </div>
+    </form>
 </Container>
   )
 }
