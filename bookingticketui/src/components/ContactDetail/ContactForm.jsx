@@ -6,7 +6,7 @@ const err = "Error has occured";
 
 const ContactForm = () => {
     const [formStatus, setFormStatus] = useState('Send')
-    const [ conFom, setConFom ] = useState({
+    const [conFom, setConFom ] = useState({
       firstName: "",
       middleName: "",
       lastName: "",
@@ -37,7 +37,7 @@ const ContactForm = () => {
     }
 
     return (
-      <div style={{ display: "flex", width: "1920px", justifyContent: 'center' }}>
+      <div style={{ display: "flex", width: "flex", justifyContent: 'center' }}>
       <div className="container">
         <h1 id = "contactheader">Contact details</h1>
 
@@ -85,9 +85,7 @@ const ContactForm = () => {
           </div>
 
 
-          <button className="btn btn-danger" 
-                  type="submit"
-                  >
+          <button className="btn btn-danger" type="submit">
             {formStatus}
           </button>
         </form>
