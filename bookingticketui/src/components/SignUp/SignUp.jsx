@@ -1,76 +1,136 @@
 import axios from "axios";
-import React, {useState} from 'react'
-
-const validEmail = new RegExp('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/');
-
-    const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,16}$');
-
+import React, { useState } from "react";
+import { createAuthenticateAPIEndpoint, ENDPOINTS } from "/src/api/AuthenticateAPI";
+import { validateEmail, validatePassword, validateConfirmPassword } from "/src/components/SignUp/SignUpValidation";
 
 const SignUpForm = () => {
-    const [formStatus, setFormStatus] = useState('Done');
-    const [conFom, setConFom] = useState({
-        firstName : "",
-        lastName : "",
-        email : "",
-        password : "",
-        confirmPasword : "",
-        isAdmin : false
-    })
+  const [formStatus, setFormStatus] = useState("Send");
+  const [conForm, setconForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    isAdmin: false,
+  });
 
-    const validatePassword = (password) => {
-        if((password.length > 16 || conFom.password.length < 6) 
-            && validPassword.test(password) )
-        {
-            alert("Password length must be between 6 to 16 words. It must contain at least 1 uppercase, 1 special symbol, and 1 number");
-            return false;
-        }
+  const handleChange = (event) => {
+    setconForm({
+      ...conForm,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-        else 
-            return true;
+  const submitForm = async (event) => {
+    event.preventDefault();
+    console.log(conForm.confirmPassword);
+    if (!validateEmail(conForm.email)  
+        || !validatePassword(conForm.password)
+        || !validateConfirmPassword(conForm.password, conForm.confirmPassword)) {
+        alert("Register failed");
     }
+ 
+    const response = await createAuthenticateAPIEndpoint(ENDPOINTS.signup).post({
+      firstName: conForm.firstName,
+      lastName: conForm.lastName,
+      email: conForm.email,
+      password: conForm.password,
+      confirmPassword: conForm.confirmPassword,
+      isAdmin: conForm.isAdmin,
+    });
 
-    const validateEmail = (email) => {
-        if(email == null) 
-        {
-            alert("Email is not allow to be empty");
-            return false
-        }
-
-        if(!validEmail.test(email))
-        {
-            alert("Wrong email format");
-            return false;
-        }
-
-        return true;
+    if(response.data.result?.status == true)
+    {
+      <nav></nav>
     }
+    alert(response.data.result?.message)
+  };
 
-    const handleChange = (event) => {
-        setConFom({
-            ...conFom,
-            [event.target.name] : event.target.value
-        })
-    }
+  return (
+    <div style={{ display: "flex", width: "flex", justifyContent: "center" }}>
+      <div className="container">
+        <h1 id="contactheader">SIGN UP FORM</h1>
 
-    const submitForm = async (event) => {
-        event.preventDefault()
+        <form onSubmit={submitForm}>
+          {/* First Name form   */}
+          <div className="mb-3">
+            <label className="form-label" htmlFor="FirstName">
+              First Name
+            </label>
+            <input
+              className="form-control"
+              type="text"
+              name="firstName"
+              id="firstName"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-            validatePassword(conFom.password);
-            validEmail(conFom.email);
-            if(conFom.password != conFom.confirmPasword)
-            {
-                alert("Confirme password must be the same as password");
-            }
-            
-            await axios.post("https://localhost:7089/api/Authenticate/sign-up", {
-                firstName : conFom.firstName,
-                lastName : conFom.lastName,
-                email : conFom.email,
-                password : conFom.password,
-                confirmPaswork : conFom.confirmPasword,
-                isAdmin : conFom.isAdmin
-            })
-        }
-}
-            
-    
+          {/* Last Name form   */}
+          <div className="mb-3">
+            <label className="form-label" htmlFor="LastName">
+              Last Name
+            </label>
+            <input
+              className="form-control"
+              type="text"
+              name="lastName"
+              id="lastName"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="form-control"
+              type="email"
+              name="email"
+              onChange={handleChange}
+              id="email"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="form-input"
+              type="password"
+              name="password"
+              id="password"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
+            <input
+              className="form-input"
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="btn btn-danger" type="submit">
+            {formStatus}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default SignUpForm;
