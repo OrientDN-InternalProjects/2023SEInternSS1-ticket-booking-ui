@@ -18,7 +18,7 @@ const App = () => {
         <Route index path="/list-flight" element={<ListFlight />} />
         <Route
           index
-          path="/list-search"
+          path="/list-search/:depart/:apart/:date"
           element={<ListSearch response={response} />}
         />
 
