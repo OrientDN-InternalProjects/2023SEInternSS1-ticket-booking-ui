@@ -3,7 +3,7 @@ import "../../components/BookingForm/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getAirports, getSearch } from "../../services/GetService";
+import { getAirports, getSearch } from "../../services/SearchServices";
 
 const Booking = ({ setResponse }) => {
   const [boxvalue, setBoxvalue] = useState([]);
