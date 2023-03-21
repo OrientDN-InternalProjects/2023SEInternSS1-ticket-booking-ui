@@ -1,6 +1,6 @@
 import React from "react";
-import Passenger from "../../components/PassengerForm/Passenger";
-import ContactForm from "../../components/ContactDetail/ContactForm";
+import Passenger from "../../components/passenger-form/passenger-form";
+import ContactForm from "../../components/contact-form/contact-form";
 
 const PassengerPage = () => {
   return (

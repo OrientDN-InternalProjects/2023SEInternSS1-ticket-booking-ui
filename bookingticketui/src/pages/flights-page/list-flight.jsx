@@ -1,20 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react";
-import "../../pages/ListFlight/List.css";
+import "../../pages/flights-page/list-model.css";
 import Table from "react-bootstrap/Table";
 import { Container, Form, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import { getListFlights } from "../../services/SearchServices";
 const ListFlight = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      let result = await fetch("https://localhost:7089/api/FlightControllers", {
-        method: "GET",
-      });
-      result = await result.json();
-      setData(result.result);
+      getListFlights().then((res) => setData(res.data.result));
     })();
   }, []);
   const handleBusinessClick = async (event) => {

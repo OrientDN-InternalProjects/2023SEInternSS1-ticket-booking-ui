@@ -1,9 +1,10 @@
 import React from "react";
-import "../../components/BookingForm/booking.css";
+import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
+import { getAirports, getSearch } from "../../services/SearchServices";
+
 const Booking = ({ setResponse }) => {
   const [boxvalue, setBoxvalue] = useState([]);
   const [departAirport, setDepartAirport] = useState("");
@@ -13,9 +14,7 @@ const Booking = ({ setResponse }) => {
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      let result = await fetch("https://localhost:7089/api/Airport/airports");
-      result = await result.json();
-      setBoxvalue(result.result);
+      getAirports().then((res) => setBoxvalue(res.data.result));
     })();
   }, []);
   const dataSubmit = {
@@ -23,28 +22,24 @@ const Booking = ({ setResponse }) => {
     arrivalAirport,
     dateDepart,
   };
-  console.log(dataSubmit);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    let result = await fetch(
-      `https://localhost:7089/api/FlightControllers/GetflightByRequest?DepartCode=${dataSubmit.departAirport}&ArrivalCode=${dataSubmit.arrivalAirport}&DepartDate=${dataSubmit.dateDepart}`,
-      {
-        method: "GET",
-      }
+    let result = await getSearch(
+      dataSubmit.departAirport,
+      dataSubmit.arrivalAirport,
+      dataSubmit.dateDepart
     );
     result = await result.json();
     if (result.isError === true) {
-      alert("error");
+      alert(result.responseException.exceptionMessage);
       navigate("/");
     } else {
-      setTest(result.result);
       setResponse(dataSubmit);
-      navigate("/list-search");
+      navigate(
+        `/list-search/${dataSubmit.departAirport}/${dataSubmit.arrivalAirport}/${dataSubmit.dateDepart}`
+      );
     }
   };
-
-  console.log("result", boxvalue);
-  console.log("result2", test);
   return (
     <Container>
       <form onSubmit={handleFormSubmit}>

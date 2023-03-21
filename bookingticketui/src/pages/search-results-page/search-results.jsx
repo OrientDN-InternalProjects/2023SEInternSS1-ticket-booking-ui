@@ -1,20 +1,18 @@
 import React, { useState, useEffect, Fragment } from "react";
-import "../../pages/ListFlight/List.css";
+import "../../pages/flights-page/list-model.css";
 import Table from "react-bootstrap/Table";
 import { Container, Form, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
-const ListSearch = ({ response }) => {
+import { useNavigate, useParams } from "react-router-dom";
+import { getSearch } from "../../services/SearchServices";
+
+const ListSearch = ({ response }, { props }) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  let search = useParams();
   useEffect(() => {
     (async () => {
-      let result = await fetch(
-        `https://localhost:7089/api/FlightControllers/GetflightByRequest?DepartCode=${response.departAirport}&ArrivalCode=${response.arrivalAirport}&DepartDate=${response.dateDepart}`,
-        {
-          method: "GET",
-        }
-      );
+      let result = await getSearch(search.depart, search.apart, search.date);
       result = await result.json();
       setData(result.result);
     })();
