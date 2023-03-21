@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createAuthenticateAPIEndpoint, ENDPOINTS } from "/src/api/AuthenticateAPI";
 import { validateEmail, validatePassword, validateConfirmPassword } from "/src/components/SignUp/SignUpValidation";
+import "./SignUp.css"
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("Send");
+  const [focused, setFocused] = useState(false);
+  const [errorMessage, setErrMsg] = useState();
   const [conForm, setconForm] = useState({
     firstName: "",
     lastName: "",
@@ -14,11 +17,28 @@ const SignUpForm = () => {
     isAdmin: false,
   });
 
+  const handleFocus = (e) => {
+    setFocused(true);
+  };
+
   const handleChange = (event) => {
+    event.preventDefault();
     setconForm({
       ...conForm,
       [event.target.name]: event.target.value,
     });
+    if(conForm.firstName === '')
+    {
+      setErrMsg("Cannot leave empty");
+    }
+
+    if(conForm.lastName === '')
+    {
+      setErrMsg("Cannot leave empty");
+    }
+    else {
+      setErrMsg('')
+    }
   };
 
   const submitForm = async (event) => {
@@ -41,9 +61,15 @@ const SignUpForm = () => {
 
     if(response.data.result?.status == true)
     {
-      <nav></nav>
+      // We intent to redirect to the login page
+      // this block will be added after finish login page
     }
-    alert(response.data.result?.message)
+
+    else
+    {
+      alert(response.data.result?.message)
+    }
+    
   };
 
   return (
@@ -63,8 +89,10 @@ const SignUpForm = () => {
               name="firstName"
               id="firstName"
               onChange={handleChange}
+              
               required
             />
+            <span>{errorMessage}</span>
           </div>
 
           {/* Last Name form   */}
@@ -78,8 +106,13 @@ const SignUpForm = () => {
               name="lastName"
               id="lastName"
               onChange={handleChange}
+              onBlur={handleFocus}
+              onFocus={() =>
+              setFocused(true)
+              }
               required
             />
+            <span>{errorMessage}</span>
           </div>
 
           <div className="mb-3">
@@ -90,10 +123,15 @@ const SignUpForm = () => {
               className="form-control"
               type="email"
               name="email"
-              onChange={handleChange}
               id="email"
+              onChange={handleChange}
+              onBlur={handleFocus}
+              onFocus={() =>
+              setFocused(true)
+              }
               required
             />
+            <span>{errorMessage}</span>
           </div>
 
           <div className="mb-3">
@@ -106,8 +144,13 @@ const SignUpForm = () => {
               name="password"
               id="password"
               onChange={handleChange}
+              onBlur={handleFocus}
+              onFocus={() =>
+              setFocused(true)
+              }
               required
             />
+            {/* <span>{errorMessage}</span> */}
           </div>
 
           <div className="mb-3">
@@ -120,8 +163,13 @@ const SignUpForm = () => {
               name="confirmPassword"
               id="confirmPassword"
               onChange={handleChange}
+              onBlur={handleFocus}
+              onFocus={() =>
+              setFocused(true)
+              }
               required
             />
+            {/* <span>{errorMessage}</span> */}
           </div>
 
           <button className="btn btn-danger" type="submit">

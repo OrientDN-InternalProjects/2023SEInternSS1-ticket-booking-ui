@@ -1,21 +1,33 @@
-import React from 'react'
-import ListFlight from './pages/ListFlight/ListFlight'
-import Booking from './components/BookingForm'
-import ContactForm from './components/ContactDetail/ContactForm'
+import React, { useState } from "react";
+import ListFlight from "./pages/flights-page/list-flight";
+import Booking from "./components/booking-form/index";
+import ListSearch from "./pages/search-results-page/search-results";
+import ContactForm from "./components/contact-form/contact-form";
+import PassengerPage from "./pages/passenger-page/passenger-page";
 import SignUp from './components/SignUp/SignUp'
-import { Route, Routes } from 'react-router'
-
+import { Route, Routes } from "react-router";
+import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/navbar";
 const App = () => {
+  const [response, setResponse] = useState({});
   return (
-    <div>
-    <Routes>
-				<Route index path='/' element={<Booking/>} />
-				<Route path='/contact-detail' element={<ContactForm/>} />
-				<Route index path='/list-flight' element={<ListFlight/>} />
-				<Route path='/sign-up' element={<SignUp/>} />
-			</Routes>
-    </div>
-  )
-}
+    <div className="App">
+      <Navbar />
+      <Routes>
+        <Route index path="/" element={<Booking setResponse={setResponse} />} />
+        <Route path="/contact-detail" element={<ContactForm />} />
+        <Route index path="/list-flight" element={<ListFlight />} />
+        <Route path='/sign-up' element={<SignUp/>} />
+        <Route
+          index
+          path="/list-search/:depart/:apart/:date"
+          element={<ListSearch response={response} />}
+        />
 
-export default App
+        <Route index path="/passenger-form" element={<PassengerPage />} />
+      </Routes>
+    </div>
+  );
+};
+
+export default App;
