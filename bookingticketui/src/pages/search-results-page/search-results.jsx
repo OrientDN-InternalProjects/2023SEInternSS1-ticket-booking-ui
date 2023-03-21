@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import "../../pages/ListFlight/List.css";
+import "../../pages/flights-page/list-model.css";
 import Table from "react-bootstrap/Table";
 import { Container, Form, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";

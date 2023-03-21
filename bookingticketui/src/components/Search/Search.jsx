@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Seach = () => {
-  return (
-    <div>
-      Info
-    </div>
-  )
-}
+  return <div>Info</div>;
+};
 
-export default Seach
+export default Seach;

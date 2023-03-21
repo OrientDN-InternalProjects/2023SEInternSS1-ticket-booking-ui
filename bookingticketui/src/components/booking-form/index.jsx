@@ -1,5 +1,5 @@
 import React from "react";
-import "../../components/BookingForm/booking.css";
+import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";

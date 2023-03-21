@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ListFlight from "./pages/ListFlight/ListFlight";
-import Booking from "./components/BookingForm";
-import ListSearch from "./pages/ListSearch/ListSearch";
-import ContactForm from "./components/ContactDetail/ContactForm";
-import PassengerPage from "./pages/PassengerPage/PassengerPage";
+import ListFlight from "./pages/flights-page/list-flight";
+import Booking from "./components/booking-form/index";
+import ListSearch from "./pages/search-results-page/search-results";
+import ContactForm from "./components/contact-form/contact-form";
+import PassengerPage from "./pages/passenger-page/passenger-page";
 import { Route, Routes } from "react-router";
-import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/navbar";
 const App = () => {
   const [response, setResponse] = useState({});
   return (
