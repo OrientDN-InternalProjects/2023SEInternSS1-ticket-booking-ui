@@ -2,61 +2,62 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { createAuthenticateAPIEndpoint, ENDPOINTS } from "/src/api/AuthenticateAPI";
 import { validateEmail, validatePassword, validateConfirmPassword } from "/src/components/SignUp/SignUpValidation";
+import { useFormik, withFormik } from "formik";
+import * as Yup from "yup";
 import "./SignUp.css"
+
 
 const SignUpForm = () => {
   const [formStatus, setFormStatus] = useState("Send");
   const [focused, setFocused] = useState(false);
   const [errorMessage, setErrMsg] = useState();
-  const [conForm, setconForm] = useState({
+  const conForm = useFormik({
+    initialValues: {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    isAdmin: false,
+    isAdmin: false
+    },
+
+    validationSchema: Yup.object({
+      firstName: Yup.string()
+        .min(2, "Mininum 2 characters")
+        .max(15, "Max is 15 characters")
+        .required("Required!"),
+      lastName: Yup.string()
+        .min(2, "Mininum 2 characters")
+        .max(15, "Max is 15 characters")
+        .required("Required!"),
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("Required!"),
+      password: Yup.string()
+        .min(6, "Minimum 6 characters")
+        .max(24, "Maximun 24 characters")
+        .required("Required!"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Password's not match")
+        .required("Required!")
+    })
   });
-
-  const handleFocus = (e) => {
-    setFocused(true);
-  };
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    setconForm({
-      ...conForm,
-      [event.target.name]: event.target.value,
-    });
-    if(conForm.firstName === '')
-    {
-      setErrMsg("Cannot leave empty");
-    }
-
-    if(conForm.lastName === '')
-    {
-      setErrMsg("Cannot leave empty");
-    }
-    else {
-      setErrMsg('')
-    }
-  };
-
   const submitForm = async (event) => {
     event.preventDefault();
-    console.log(conForm.confirmPassword);
-    if (!validateEmail(conForm.email)  
-        || !validatePassword(conForm.password)
-        || !validateConfirmPassword(conForm.password, conForm.confirmPassword)) {
+    console.log(conForm.values.confirmPassword);
+    if (!validateEmail(conForm.values.email)  
+        || !validatePassword(conForm.values.password)
+        || !validateConfirmPassword(conForm.values.password, conForm.values.confirmPassword)) {
         alert("Register failed");
     }
- 
+
     const response = await createAuthenticateAPIEndpoint(ENDPOINTS.signup).post({
-      firstName: conForm.firstName,
-      lastName: conForm.lastName,
-      email: conForm.email,
-      password: conForm.password,
-      confirmPassword: conForm.confirmPassword,
-      isAdmin: conForm.isAdmin,
+      firstName: conForm.values.firstName,
+      lastName: conForm.values.lastName,
+      email: conForm.values.email,
+      password: conForm.values.password,
+      confirmPassword: conForm.values.confirmPassword,
+      isAdmin: conForm.values.isAdmin,
     });
 
     if(response.data.result?.status == true)
@@ -71,6 +72,7 @@ const SignUpForm = () => {
     }
     
   };
+
 
   return (
     <div style={{ display: "flex", width: "flex", justifyContent: "center" }}>
@@ -88,11 +90,11 @@ const SignUpForm = () => {
               type="text"
               name="firstName"
               id="firstName"
-              onChange={handleChange}
-              
+              value = {conForm.values.firstName}
+              onChange={conForm.handleChange}
               required
             />
-            <span>{errorMessage}</span>
+            <span>{conForm.errors.firstName}</span>
           </div>
 
           {/* Last Name form   */}
@@ -105,14 +107,11 @@ const SignUpForm = () => {
               type="text"
               name="lastName"
               id="lastName"
-              onChange={handleChange}
-              onBlur={handleFocus}
-              onFocus={() =>
-              setFocused(true)
-              }
+              value = {conForm.values.lastName}
+              onChange={conForm.handleChange}
               required
             />
-            <span>{errorMessage}</span>
+            <span>{conForm.errors.lastName}</span>
           </div>
 
           <div className="mb-3">
@@ -124,14 +123,11 @@ const SignUpForm = () => {
               type="email"
               name="email"
               id="email"
-              onChange={handleChange}
-              onBlur={handleFocus}
-              onFocus={() =>
-              setFocused(true)
-              }
+              value = {conForm.values.email}
+              onChange={conForm.handleChange}
               required
             />
-            <span>{errorMessage}</span>
+            <span>{conForm.errors.email}</span>
           </div>
 
           <div className="mb-3">
@@ -143,14 +139,11 @@ const SignUpForm = () => {
               type="password"
               name="password"
               id="password"
-              onChange={handleChange}
-              onBlur={handleFocus}
-              onFocus={() =>
-              setFocused(true)
-              }
+              value = {conForm.values.password}
+              onChange={conForm.handleChange}
               required
             />
-            {/* <span>{errorMessage}</span> */}
+            <span>{conForm.errors.password}</span>
           </div>
 
           <div className="mb-3">
@@ -162,14 +155,11 @@ const SignUpForm = () => {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              onChange={handleChange}
-              onBlur={handleFocus}
-              onFocus={() =>
-              setFocused(true)
-              }
+              value = {conForm.values.confirmPassword}
+              onChange={conForm.handleChange}
               required
             />
-            {/* <span>{errorMessage}</span> */}
+            <span>{conForm.errors.confirmPassword}</span>
           </div>
 
           <button className="btn btn-danger" type="submit">
