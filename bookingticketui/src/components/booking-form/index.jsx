@@ -3,7 +3,9 @@ import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getAirports, getSearch } from "../../services/SearchServices";
+import { getAirports, getSearch } from "../../services/search-services";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Booking = ({ setResponse }) => {
   const [boxvalue, setBoxvalue] = useState([]);
@@ -22,6 +24,7 @@ const Booking = ({ setResponse }) => {
     arrivalAirport,
     dateDepart,
   };
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     let result = await getSearch(
@@ -40,9 +43,39 @@ const Booking = ({ setResponse }) => {
       );
     }
   };
+
+  const formik = useFormik({
+    initialValues: {
+      depart: "",
+      arrival: "",
+      dateDepart: "",
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      depart: Yup.string().required("Required!"),
+      arrival: Yup.string()
+        .required("Required!")
+        .notOneOf([Yup.ref("depart")], "arrival must not same depart"),
+      dateDepart: Yup.string().required("Required!"),
+    }),
+    onSubmit: (values) => {
+      let result = getSearch(values.depart, values.arrival, values.dateDepart);
+      result = result.json();
+      if (result.isError === true) {
+        alert(result.responseException.exceptionMessage);
+        navigate("/");
+      } else {
+        setResponse(dataSubmit);
+        navigate(
+          `/list-search/${values.depart}/${values.arrival}/${values.dateDepart}`
+        );
+      }
+    },
+  });
+
   return (
     <Container>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <div class="card p-4 mt-5">
           <div class="row g-3">
             <div class="col-12 mb-4">
@@ -57,7 +90,7 @@ const Booking = ({ setResponse }) => {
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="inlineRadioOptions"
+                  name="c"
                   id="Roundtrip"
                   value="option1"
                 />
@@ -83,7 +116,8 @@ const Booking = ({ setResponse }) => {
                 <select
                   name="depart"
                   className="form-control"
-                  onChange={(event) => setDepartAirport(event.target.value)}
+                  value={formik.values.depart}
+                  onChange={formik.handleChange}
                 >
                   <option>--Select Depart Airport--</option>
                   {boxvalue.map((getcon) => (
@@ -93,6 +127,9 @@ const Booking = ({ setResponse }) => {
                     </option>
                   ))}
                 </select>
+                {formik.errors.depart && formik.touched.depart && (
+                  <span>{formik.errors.depart}</span>
+                )}
                 <label>FLYING FROM</label>
               </div>
             </div>
@@ -101,7 +138,8 @@ const Booking = ({ setResponse }) => {
                 <select
                   name="arrival"
                   className="form-control"
-                  onChange={(event) => setArrivalAirport(event.target.value)}
+                  value={formik.values.arrival}
+                  onChange={formik.handleChange}
                 >
                   <option>--Select Arival Airport--</option>
                   {boxvalue.map((getcon) => (
@@ -111,6 +149,9 @@ const Booking = ({ setResponse }) => {
                     </option>
                   ))}
                 </select>
+                {formik.errors.arrival && formik.touched.arrival && (
+                  <span>{formik.errors.arrival}</span>
+                )}
                 <label>FLYING TO</label>
               </div>
             </div>
@@ -118,10 +159,15 @@ const Booking = ({ setResponse }) => {
               <div class="form-floating">
                 <input
                   type="date"
+                  name="dateDepart"
                   class="form-control"
                   placeholder="DEPARTING"
-                  onChange={(event) => setDateDepart(event.target.value)}
+                  value={formik.values.dateDepart}
+                  onChange={formik.handleChange}
                 />
+                {formik.errors.dateDepart && formik.touched.dateDepart && (
+                  <span>{formik.errors.dateDepart}</span>
+                )}
                 <label>DEPARTING</label>
               </div>
             </div>

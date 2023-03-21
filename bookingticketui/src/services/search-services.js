@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const baseURL = 'https://localhost:7089'
 
 export const axiosBaseURL = axios.create({
@@ -20,3 +21,4 @@ export const getSearch =(depart,arrival, date)=>{
           method: "GET",
         })
 };
+
