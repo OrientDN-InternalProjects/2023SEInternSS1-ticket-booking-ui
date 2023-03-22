@@ -5,7 +5,7 @@ import { Container, Form, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSearch } from "../../services/search-services";
-
+import Search from "../../components/search/Search";
 const ListSearch = ({ response }, { props }) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const ListSearch = ({ response }, { props }) => {
   console.log("result", data);
   return (
     <div>
+      <Search response={response} />
       <Container>
         <h1 className="text-center text-light mt-10">Flight List</h1>
         <Table striped>

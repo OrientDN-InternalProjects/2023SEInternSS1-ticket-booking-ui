@@ -9,8 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import bookingModel from "./bookingModel";
 
 const Booking = ({ setResponse }) => {
-  const [numPeople, setnumPeople] = useState(1);
-
   const [dataSubmit, setDataSubmit] = useState({
     depart: "",
     arrival: "",
