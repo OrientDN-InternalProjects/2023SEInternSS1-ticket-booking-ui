@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import { Container, Form, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSearch } from "../../services/SearchServices";
+import { getSearch } from "../../services/search-services";
 
 const ListSearch = ({ response }, { props }) => {
   const [data, setData] = useState([]);
