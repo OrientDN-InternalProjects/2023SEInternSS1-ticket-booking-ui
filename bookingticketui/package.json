@@ -23,6 +23,7 @@
     "react-router-dom": "^6.9.0",
     "react-toastify": "^9.1.2",
     "sass": "^1.59.2",
+    "validator": "^13.9.0",
     "yarn": "^1.22.19",
     "yup": "^1.0.2"
   },
