@@ -13,7 +13,7 @@ const Booking = ({ setResponse }) => {
     depart: "",
     arrival: "",
     dateDepart: "",
-    numPeople: "",
+    numPeople: 1,
   });
   console.log(dataSubmit);
 
@@ -124,7 +124,7 @@ const Booking = ({ setResponse }) => {
                   {...register("numPeople")}
                   onChange={updateChange}
                 />
-                <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
+                <div style={{ color: "red" }}>{errors.numPeople?.message}</div>
                 <label>Number People</label>
               </div>
             </div>

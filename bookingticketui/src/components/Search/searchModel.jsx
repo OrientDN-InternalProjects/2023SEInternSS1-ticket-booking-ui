@@ -1,5 +1,4 @@
 import React from "react";
-import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAirports, getSearch } from "../../services/search-services";
@@ -7,12 +6,12 @@ import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const bookingModel = ({ dataSubmit }, { setResponse }) => {
+const searchModel = ({ dataSubmit, setResponse, response }) => {
   const [boxvalue, setBoxvalue] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      getAirports().then((res) => setBoxvalue(res.data.result));
+      await getAirports().then((res) => setBoxvalue(res.data.result));
     })();
   }, []);
 
@@ -22,7 +21,6 @@ const bookingModel = ({ dataSubmit }, { setResponse }) => {
       .notOneOf([Yup.ref("depart"), null], "Arrial must not same depart")
       .required("Arrival is required"),
     dateDepart: Yup.string().required("Date of depart is required"),
-    numPeople: Yup.number().required("Must have passenger"),
   });
 
   const onSubmit = async () => {
@@ -31,8 +29,8 @@ const bookingModel = ({ dataSubmit }, { setResponse }) => {
       dataSubmit.arrival,
       dataSubmit.dateDepart
     );
-    result = await result.data;
-    if (result.isError === true) {
+    const res = await result.data;
+    if (res.isError === true) {
       toast.error("Invalid Flight !", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 5000,
@@ -43,7 +41,9 @@ const bookingModel = ({ dataSubmit }, { setResponse }) => {
         progress: undefined,
         theme: "colored",
       });
-      navigate("/");
+      navigate(
+        `/list-search/${response.depart}/${response.arrival}/${response.dateDepart}`
+      );
     } else {
       setResponse(dataSubmit);
       navigate(
@@ -58,4 +58,4 @@ const bookingModel = ({ dataSubmit }, { setResponse }) => {
   };
 };
 
-export default bookingModel;
+export default searchModel;
