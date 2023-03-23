@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from "react-country-region-selector";
+import Select from 'react-bootstrap'
+import countryList from 'react-select-country-list'
 
 const Passenger = () => {
   const [inputFields, setInputFields] = useState([
@@ -22,35 +19,47 @@ const Passenger = () => {
       expDate: "",
     },
   ]);
+  const changeHandler = value => {
+    setValue(value)
+  }
+  const [country, setCountry] = useState('');
+  const options = useMemo(() => countryList().getData(), [])
 
-  const [country, setCountry] = useState("");
 
   const handleFormChange = (index, event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
+    console.log(data)
   };
-
-  const addFields = () => {
-    let newfield = {
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      nation: "",
-      identifyCard: "",
-      provideNa: "",
-      expDate: "",
-    };
-
-    setInputFields([...inputFields, newfield]);
-  };
+  useEffect(() => {
+    (async () => {
+        for (let i = 0; i < 2; i++){
+        let newfield = {
+          firstName: "",
+          lastName: "",
+          dateOfBirth: "",
+          nation: '',
+          identifyCard: "",
+          provideNa: "",
+          expDate: "",
+        }
+    
+        setInputFields([...inputFields, newfield])
+        }
+      
+    })();
+  }, []);
+  
   return (
     <Container className="w-50 p-3 mb-2 bg-light text-dark">
       <Form>
-        <h1>Passenger details</h1>
         {inputFields.map((input, index) => {
           return (
-            <Form key={index}>
+            <div key={index}>
+              <span>---------------------------------------------------------------------------------------------------------------</span>
+              <h1>Passenger {index +1}</h1>
+              
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>First Name</Form.Label>
@@ -87,12 +96,7 @@ const Passenger = () => {
 
               <Form.Group className="mb-3" controlId="formGridAddress2">
                 <Form.Label>Nation</Form.Label>
-                <CountryDropdown
-                  name="nation"
-                  value={country}
-                  // onChange={(event) => handleFormChange(index, event)}
-                  onChange={(val) => setCountry(val)}
-                />
+                <Select options={options} value={value} onChange={changeHandler(value)} />
               </Form.Group>
 
               <Row className="mb-3">
@@ -124,11 +128,11 @@ const Passenger = () => {
                 </Form.Group>
               </Row>
               <Form>
-                <Button variant="primary" onClick={addFields}>
+                {/* <Button variant="primary" onClick={addFields}>
                   add field
-                </Button>
+                </Button> */}
               </Form>
-            </Form>
+            </div>
           );
         })}
       </Form>
