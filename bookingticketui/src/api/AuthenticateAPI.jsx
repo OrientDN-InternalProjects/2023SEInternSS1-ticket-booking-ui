@@ -4,6 +4,7 @@ export const BASE_URL = 'https://localhost:7089/';
 
 export const ENDPOINTS = {
     signup: 'sign-up',
+    bill: 'get-booking'
 }
 
 export const createAuthenticateAPIEndpoint = endpoint => {
@@ -12,4 +13,9 @@ export const createAuthenticateAPIEndpoint = endpoint => {
     return {
         post: newRecord => axios.post(url, newRecord)
     }
+}
+
+export const createTicketAPIEndpoint = async (endpoint, code) => {
+    const response = await axios.get(`${BASE_URL}api/Booking/${endpoint}?code=${code}`);
+    return response.data;
 }

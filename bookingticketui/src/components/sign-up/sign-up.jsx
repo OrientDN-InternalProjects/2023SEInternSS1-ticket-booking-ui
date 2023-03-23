@@ -79,7 +79,7 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className="signup-container">
         <h1 id="contactheader">SIGN UP FORM</h1>
         
         <div style={{

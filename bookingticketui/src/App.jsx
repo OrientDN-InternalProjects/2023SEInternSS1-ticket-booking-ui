@@ -8,6 +8,8 @@ import SignUp from './components/sign-up/sign-up'
 import { Route, Routes } from "react-router";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/navbar";
+import Ticket from "./components/ticket-form/ticket-form";
+
 const App = () => {
   const [response, setResponse] = useState({});
   return (
@@ -18,6 +20,7 @@ const App = () => {
         <Route path="/contact-detail" element={<ContactForm />} />
         <Route index path="/list-flight" element={<ListFlight />} />
         <Route path='/sign-up' element={<SignUp/>} />
+        <Route path='/ticket-form' element={<Ticket/>} />
         <Route
           index
           path="/list-search/:depart/:apart/:date"

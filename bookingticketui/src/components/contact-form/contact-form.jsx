@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 const err = "Error has occured";
 import { useNavigate } from "react-router-dom";
+
 const ContactForm = () => {
   const navigate = useNavigate();
   const [formStatus, setFormStatus] = useState("Send");
