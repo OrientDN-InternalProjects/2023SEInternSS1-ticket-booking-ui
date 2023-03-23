@@ -35,7 +35,6 @@ export const validatePassword = (password) => {
   };
 
   export const validateConfirmPassword = (password, confirmPassword) => {
-    
     console.log(password);
     console.log(confirmPassword);
     if (password === confirmPassword) {
@@ -47,6 +46,5 @@ export const validatePassword = (password) => {
       alert("Confirm password must be the same as password");
       return false;
     }
-    
   };
 

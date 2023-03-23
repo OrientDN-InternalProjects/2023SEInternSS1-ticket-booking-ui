@@ -2,47 +2,43 @@ import React from "react";
 import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { getAirports, getSearch } from "../../services/SearchServices";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import bookingModel from "./bookingModel";
 
 const Booking = ({ setResponse }) => {
-  const [boxvalue, setBoxvalue] = useState([]);
-  const [departAirport, setDepartAirport] = useState("");
-  const [arrivalAirport, setArrivalAirport] = useState("");
-  const [dateDepart, setDateDepart] = useState("");
-  const [test, setTest] = useState([]);
-  const navigate = useNavigate();
-  useEffect(() => {
-    (async () => {
-      getAirports().then((res) => setBoxvalue(res.data.result));
-    })();
-  }, []);
-  const dataSubmit = {
-    departAirport,
-    arrivalAirport,
-    dateDepart,
+  const [numPeople, setnumPeople] = useState(1);
+
+  const [dataSubmit, setDataSubmit] = useState({
+    depart: "",
+    arrival: "",
+    dateDepart: "",
+    numPeople: "",
+  });
+  console.log(dataSubmit);
+
+  const updateChange = (e) => {
+    e.preventDefault();
+    const fieldName = e.target.name;
+    setDataSubmit((existingValues) => ({
+      ...existingValues,
+      [fieldName]: e.target.value,
+    }));
   };
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    let result = await getSearch(
-      dataSubmit.departAirport,
-      dataSubmit.arrivalAirport,
-      dataSubmit.dateDepart
-    );
-    result = await result.json();
-    if (result.isError === true) {
-      alert(result.responseException.exceptionMessage);
-      navigate("/");
-    } else {
-      setResponse(dataSubmit);
-      navigate(
-        `/list-search/${dataSubmit.departAirport}/${dataSubmit.arrivalAirport}/${dataSubmit.dateDepart}`
-      );
-    }
-  };
+  const { validationSchema, boxvalue, onSubmit } = bookingModel(
+    { dataSubmit },
+    { setResponse }
+  );
+  const formOptions = { resolver: yupResolver(validationSchema) };
+
+  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { errors } = formState;
+
   return (
     <Container>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div class="card p-4 mt-5">
           <div class="row g-3">
             <div class="col-12 mb-4">
@@ -83,7 +79,8 @@ const Booking = ({ setResponse }) => {
                 <select
                   name="depart"
                   className="form-control"
-                  onChange={(event) => setDepartAirport(event.target.value)}
+                  {...register("depart")}
+                  onChange={updateChange}
                 >
                   <option>--Select Depart Airport--</option>
                   {boxvalue.map((getcon) => (
@@ -93,6 +90,7 @@ const Booking = ({ setResponse }) => {
                     </option>
                   ))}
                 </select>
+                <div style={{ color: "red" }}>{errors.depart?.message}</div>
                 <label>FLYING FROM</label>
               </div>
             </div>
@@ -101,7 +99,8 @@ const Booking = ({ setResponse }) => {
                 <select
                   name="arrival"
                   className="form-control"
-                  onChange={(event) => setArrivalAirport(event.target.value)}
+                  {...register("arrival")}
+                  onChange={updateChange}
                 >
                   <option>--Select Arival Airport--</option>
                   {boxvalue.map((getcon) => (
@@ -111,17 +110,37 @@ const Booking = ({ setResponse }) => {
                     </option>
                   ))}
                 </select>
+                <div style={{ color: "red" }}>{errors.arrival?.message}</div>
                 <label>FLYING TO</label>
               </div>
             </div>
             <div class="col-lg-6 col-md-12">
               <div class="form-floating">
                 <input
+                  name="numPeople"
+                  type="number"
+                  max={7}
+                  min={1}
+                  class="form-control"
+                  placeholder={1}
+                  {...register("numPeople")}
+                  onChange={updateChange}
+                />
+                <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
+                <label>Number People</label>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="form-floating">
+                <input
+                  name="dateDepart"
                   type="date"
                   class="form-control"
                   placeholder="DEPARTING"
-                  onChange={(event) => setDateDepart(event.target.value)}
+                  {...register("dateDepart")}
+                  onChange={updateChange}
                 />
+                <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
                 <label>DEPARTING</label>
               </div>
             </div>
@@ -132,6 +151,7 @@ const Booking = ({ setResponse }) => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </form>
     </Container>
   );
