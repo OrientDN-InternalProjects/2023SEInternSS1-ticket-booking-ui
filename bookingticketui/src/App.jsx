@@ -4,7 +4,7 @@ import Booking from "./components/booking-form/index";
 import ListSearch from "./pages/search-results-page/search-results";
 import ContactForm from "./components/contact-form/contact-form";
 import PassengerPage from "./pages/passenger-page/passenger-page";
-import SignUp from './components/SignUp/SignUp'
+import SignUp from './components/sign-up/sign-up'
 import { Route, Routes } from "react-router";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/navbar";

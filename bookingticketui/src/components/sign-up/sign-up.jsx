@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { createAuthenticateAPIEndpoint, ENDPOINTS } from "/src/api/AuthenticateAPI";
-import { validateEmail, validatePassword, validateConfirmPassword } from "/src/components/SignUp/SignUpValidation";
+import { validateEmail, validatePassword, validateConfirmPassword } from "/src/components/sign-up/sign-up-validation";
 import { useFormik, withFormik } from "formik";
 import * as Yup from "yup";
-import "./SignUp.css"
+import "./sign-up.css"
 
 
 const SignUpForm = () => {

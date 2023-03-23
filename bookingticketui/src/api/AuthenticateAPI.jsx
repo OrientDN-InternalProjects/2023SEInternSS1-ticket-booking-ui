@@ -8,7 +8,7 @@ export const ENDPOINTS = {
 
 export const createAuthenticateAPIEndpoint = endpoint => {
 
-    let url = BASE_URL + 'api/' + 'authenticate/' + endpoint + '/';
+    const  url = `${BASE_URL}api/authenticate/${endpoint}/`;
     return {
         post: newRecord => axios.post(url, newRecord)
     }
