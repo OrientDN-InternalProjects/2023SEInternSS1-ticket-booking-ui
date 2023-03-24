@@ -18,9 +18,7 @@ export const getSearch = async (depart, arrival, date)=>{
     try {
         const response = await axios.get(
             baseURL+`/api/FlightControllers/GetflightByRequest?DepartCode=${depart}&ArrivalCode=${arrival}&DepartDate=${date}`,
-            {
-              
-            })
+            {})
         return response
     } catch (error) {
         console.log(error)

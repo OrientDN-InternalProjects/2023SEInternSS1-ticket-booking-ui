@@ -19,7 +19,10 @@ const bookingModel = ({ dataSubmit }, { setResponse }) => {
   const validationSchema = Yup.object().shape({
     depart: Yup.string().required("Depart is required"),
     arrival: Yup.string()
-      .notOneOf([Yup.ref("depart"), null], "Arrial must not same depart")
+      .notOneOf(
+        [Yup.ref("depart"), null],
+        "The arrival airport must not same the depart airport"
+      )
       .required("Arrival is required"),
     dateDepart: Yup.string().required("Date of depart is required"),
     numPeople: Yup.number().required("Must have passenger"),
