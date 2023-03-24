@@ -9,13 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 import bookingModel from "./bookingModel";
 
 const Booking = ({ setResponse }) => {
-  const [numPeople, setnumPeople] = useState(1);
-
   const [dataSubmit, setDataSubmit] = useState({
     depart: "",
     arrival: "",
     dateDepart: "",
-    numPeople: "",
+    numPeople: 1,
   });
   console.log(dataSubmit);
 
@@ -126,7 +124,7 @@ const Booking = ({ setResponse }) => {
                   {...register("numPeople")}
                   onChange={updateChange}
                 />
-                <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
+                <div style={{ color: "red" }}>{errors.numPeople?.message}</div>
                 <label>Number People</label>
               </div>
             </div>

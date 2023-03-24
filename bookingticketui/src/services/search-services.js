@@ -16,11 +16,9 @@ export const getListFlights =()=>{
 
 export const getSearch = async (depart, arrival, date)=>{
     try {
-        const response = fetch(
+        const response = await axios.get(
             baseURL+`/api/FlightControllers/GetflightByRequest?DepartCode=${depart}&ArrivalCode=${arrival}&DepartDate=${date}`,
-            {
-              method: "GET",
-            })
+            {})
         return response
     } catch (error) {
         console.log(error)
