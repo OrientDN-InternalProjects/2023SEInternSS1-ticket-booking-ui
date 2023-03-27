@@ -10,7 +10,7 @@ import { AppContext } from "../../states/app-context";
 const searchModel = ({ dataSubmit }) => {
   const [boxvalue, setBoxvalue] = useState([]);
   const navigate = useNavigate();
-  const { setResponse } = useContext(AppContext);
+  const { response, setResponse } = useContext(AppContext);
   useEffect(() => {
     (async () => {
       await getAirports().then((res) => setBoxvalue(res.data.result));
@@ -37,7 +37,7 @@ const searchModel = ({ dataSubmit }) => {
     );
     if (result?.isError) {
       toast.error("Invalid Flight !", {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -46,7 +46,9 @@ const searchModel = ({ dataSubmit }) => {
         progress: undefined,
         theme: "colored",
       });
-      navigate("/");
+      navigate(
+        `/list-search/${response.depart}/${response.arrival}/${response.dateDepart}`
+      );
     } else {
       setResponse(dataSubmit);
       navigate(

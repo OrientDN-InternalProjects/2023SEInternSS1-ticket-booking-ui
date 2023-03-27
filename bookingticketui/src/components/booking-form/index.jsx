@@ -13,7 +13,7 @@ const Booking = () => {
     depart: "",
     arrival: "",
     dateDepart: "",
-    numPeople: 1,
+    numPeople: 1.0,
   });
   console.log(dataSubmit);
 

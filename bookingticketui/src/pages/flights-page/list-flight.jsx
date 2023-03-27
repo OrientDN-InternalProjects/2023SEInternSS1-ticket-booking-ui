@@ -49,32 +49,6 @@ const ListFlight = () => {
                 : item.departAirport.toLowerCase().includes(search);
             })
             .map((data) => (
-              // <tr key={data.id}>
-              //   <td>
-              //     <img src="https://img.icons8.com/nolan/64/airplane-take-off.png" />
-              //   </td>
-              //   <td>{data.aircraftModel}</td>
-              //   <td>{data.departAirport}</td>
-              //   <td>{data.arrivalAirport}</td>
-              //   <td>{data.departTime}</td>
-              //   <td>{data.arrivalTime}</td>
-              //   <td>{data.businessPrice}</td>
-              //   <td>{data.economyPrice}</td>
-              //   <td>{data.remainBusinessSeat}</td>
-              //   <td>{data.remainEconomySeat}</td>
-              //   <td>
-              //     {" "}
-              //     <Button onClick={handleBusinessClick} variant="success">
-              //       Booking Business
-              //     </Button>{" "}
-              //   </td>
-              //   <td>
-              //     {" "}
-              //     <Button variant="warning" onClick={handleEconomyClick}>
-              //       Booking Economy
-              //     </Button>{" "}
-              //   </td>
-              // </tr>
               <Row
                 key={data.id}
                 bg={"Light"}

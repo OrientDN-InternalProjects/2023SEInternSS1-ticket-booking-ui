@@ -41,7 +41,7 @@ const bookingModel = ({ dataSubmit }) => {
 
     if (result?.isError) {
       toast.error("Invalid Flight !", {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

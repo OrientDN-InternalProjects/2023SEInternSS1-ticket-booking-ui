@@ -7,7 +7,7 @@ export const AppProvider = ({ children }) => {
     depart: "",
     arrival: "",
     dateDepart: "",
-    numPeople: 1,
+    numPeople: 1.0,
   });
   const [flight, setFlight] = useState();
   return (

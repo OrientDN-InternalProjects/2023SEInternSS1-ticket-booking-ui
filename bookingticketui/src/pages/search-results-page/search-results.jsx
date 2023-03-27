@@ -65,23 +65,24 @@ const ListSearch = () => {
                         <h5>VietName AirLine: {data.aircraftModel}</h5>
                         <div className="mb-0 ">
                           <span>{data.departAirport}</span>
-                          <span className="text-primary"> •-------</span>
-                          <span className="text-primary">• </span>
+                          <span className="text-primary"> •-------• </span>
                           <span>
                             {data.arrivalAirport}
                             <br />
                           </span>
                         </div>
                         <div className="mb-2">
-                          <span>{data.departTime}</span>
-                          <span className="text-primary"> •-------- </span>
                           <span
-                            className="text-primary text-wrap"
+                            className="badge text-dark text-wrap"
                             style={{ width: "6rem" }}
                           >
-                            •
+                            {data.departTime}
                           </span>
-                          <span>
+                          <span className="text-primary"> •-------•</span>
+                          <span
+                            className="badge text-dark text-wrap"
+                            style={{ width: "6rem" }}
+                          >
                             {data.arrivalTime}
                             <br />
                           </span>
@@ -107,7 +108,7 @@ const ListSearch = () => {
                           <Button
                             color="primary"
                             size="sm"
-                            onClick={handleBusinessClick}
+                            onClick={(e) => handleEconomyClick(e, data.id)}
                           >
                             Booking Business
                           </Button>
@@ -116,7 +117,7 @@ const ListSearch = () => {
                             color="primary"
                             size="sm"
                             className="mt-2"
-                            onClick={handleEconomyClick}
+                            onClick={(e) => handleEconomyClick(e, data.id)}
                           >
                             Booking Economy
                           </Button>
