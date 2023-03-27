@@ -1,15 +1,17 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { Col, Divider, Row, Table } from 'antd';
-import { useState, useEffect, Fragment } from "react";
+import { useState } from "react";
 import { createTicketAPIEndpoint, ENDPOINTS } from "../../api/AuthenticateAPI";
-
+import {displayAlert} from "../notification/toast";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import "./ticket-form.css"
 
 
 const Ticket = () => {
-  //const navigate = useNavigate();
   const [data, setData] = useState();
   const [formStatus, setFormStatus] = useState("Check");
+  const [noti, setNoti] = useState();
+  const [type, setType] = useState();
   const [conForm, setConFom] = useState({
     Code : ""
   });
@@ -21,49 +23,64 @@ const Ticket = () => {
     });
   };
 
+
   const submitForm = async (event) => {
     event.preventDefault();
     console.log(conForm.Code);
-    let result = await createTicketAPIEndpoint(ENDPOINTS.bill, conForm.Code
-    );
+    let result = await createTicketAPIEndpoint(ENDPOINTS.bill, conForm.Code);
     
     setData(result);
+    //console.log(error);
+    if (result?.response?.status == 500)
+    {
+       console.log(result?.response?.status)
+       setNoti("The code does not exist");
+       setType("error");
+    }
+    else {
+      setNoti("Get succefully");
+      setType("success");
+    }
 
-    // if (result.length === 0)
-    // {
-    //   alert("The code does not exist")
-    // }
+    //console.log(result.response.data.isError);
+    console.log(result);
+
   };
 
-
-  console.log(data);
-
+  
   return (
     <div>
-      <div className="signup-container">
-      <h1 id="contactheader">Contact details</h1>
+      <div className="ticket-container">
+      <h1 id="contactheader">Ticket detail</h1>
 
       <form onSubmit={submitForm}>
         {/* Reference cdoe form   */}
-        <div className="mb-3">
+        <div className="input-box">
           <label className="form-label" htmlFor="Code">
-            Reference code
+            
           </label>
           <input
+          style={{
+            borderRadius: "5px",
+            border: "1px solid"
+          }}
             className="form-control"
             type="text"
             name="Code"
             id="Code"
-            //value = {conForm.Code}
             onChange={handleChange}
             required
           />
         </div>
 
-        <button className="btn btn-danger" type="submit">
-          {formStatus}
+        <button className="action-button" 
+        type="submit" 
+        onClick = {() => displayAlert(noti, type)}
+        >
+          Check!   
         </button>
       </form>
+      <ToastContainer />
     </div>
     </div>
   );

@@ -16,6 +16,11 @@ export const createAuthenticateAPIEndpoint = endpoint => {
 }
 
 export const createTicketAPIEndpoint = async (endpoint, code) => {
-    const response = await axios.get(`${BASE_URL}api/Booking/${endpoint}?code=${code}`);
-    return response.data;
+    try {
+        const response = await axios.get(`${BASE_URL}api/Booking/${endpoint}?code=${code}`);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
 }
