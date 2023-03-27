@@ -38,7 +38,7 @@ const Search = () => {
     <Container className="w-50 p-3 mb-2 bg-light text-dark">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          <Col xs={4}>
+          <Col xs={3}>
             <Form.Label>Depart airport</Form.Label>
             <Form.Select
               size="sm"
@@ -56,7 +56,7 @@ const Search = () => {
             </Form.Select>
             <div style={{ color: "red" }}>{errors.depart?.message}</div>
           </Col>
-          <Col xs={4}>
+          <Col xs={3}>
             <Form.Label>Arival airport</Form.Label>
             <Form.Select
               size="sm"
@@ -84,6 +84,22 @@ const Search = () => {
                 {...register("dateDepart")}
                 onChange={updateChange}
                 placeholder={response.dateDepart}
+              />
+            </Form.Group>
+            <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
+          </Col>
+          <Col xs={2}>
+            <Form.Group controlId="dob">
+              <Form.Label>Number People</Form.Label>
+              <Form.Control
+                type="number"
+                name="numPeople"
+                class="form-control"
+                {...register("numPeople")}
+                max={7}
+                min={1}
+                onChange={updateChange}
+                placeholder={response.numPeople}
               />
             </Form.Group>
             <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>

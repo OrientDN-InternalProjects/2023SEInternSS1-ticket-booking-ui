@@ -21,7 +21,7 @@ const App = () => {
         <Route index path="/list-flight" element={<ListFlight />} />
         <Route path="/sign-up" element={<SignUp />} />
 
-        <Route index path="/passenger-form" element={<PassengerPage />} />
+        <Route index path="/passenger-form/:id" element={<PassengerPage />} />
       </Routes>
     </div>
   );

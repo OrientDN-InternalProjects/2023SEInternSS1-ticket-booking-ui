@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
     dateDepart: "",
     numPeople: 1,
   });
+  const [flight, setFlight] = useState();
   return (
     <AppContext.Provider value={{ response, setResponse }}>
       {children}

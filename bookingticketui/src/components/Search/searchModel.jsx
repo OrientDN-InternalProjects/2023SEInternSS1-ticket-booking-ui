@@ -26,6 +26,7 @@ const searchModel = ({ dataSubmit }) => {
       )
       .required("Arrival is required"),
     dateDepart: Yup.string().required("Date of depart is required"),
+    numPeople: Yup.number().required("Must have passenger"),
   });
 
   const onSubmit = async () => {

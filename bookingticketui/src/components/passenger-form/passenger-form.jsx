@@ -4,11 +4,6 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from "react-country-region-selector";
 
 const Passenger = () => {
   const [inputFields, setInputFields] = useState([
@@ -22,10 +17,6 @@ const Passenger = () => {
       expDate: "",
     },
   ]);
-
-  const selectCountry = (val) => {
-    this.setState({ country: val });
-  };
 
   const handleFormChange = (index, event) => {
     let data = [...inputFields];
@@ -89,7 +80,7 @@ const Passenger = () => {
 
               <Form.Group className="mb-3" controlId="formGridAddress2">
                 <Form.Label>Nation</Form.Label>
-                <CountryDropdown
+                <Form.Control
                   name="nation"
                   value={input.nation}
                   onChange={(event) => handleFormChange(index, event)}
