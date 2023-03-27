@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import bookingModel from "./bookingModel";
 
-const Booking = ({ setResponse }) => {
+const Booking = () => {
   const [dataSubmit, setDataSubmit] = useState({
     depart: "",
     arrival: "",
@@ -25,10 +25,7 @@ const Booking = ({ setResponse }) => {
       [fieldName]: e.target.value,
     }));
   };
-  const { validationSchema, boxvalue, onSubmit } = bookingModel(
-    { dataSubmit },
-    { setResponse }
-  );
+  const { validationSchema, boxvalue, onSubmit } = bookingModel({ dataSubmit });
   const formOptions = { resolver: yupResolver(validationSchema) };
 
   const { register, handleSubmit, formState } = useForm(formOptions);

@@ -1,13 +1,15 @@
 import React from "react";
 import { Container, Col, Form, Row, Button } from "react-bootstrap";
-import { useState, useEffect, Fragment } from "react";
-import { getAirports } from "../../services/search-services";
+import { useState, useEffect, Fragment, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import searchModel from "./searchModel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Search = ({ response, setResponse }) => {
+import { AppContext } from "../../states/app-context";
+const Search = () => {
+  const { response } = useContext(AppContext);
+
   const [dataSubmit, setDataSubmit] = useState({
     depart: "",
     arrival: "",
@@ -26,8 +28,6 @@ const Search = ({ response, setResponse }) => {
   };
   const { validationSchema, boxvalue, onSubmit } = searchModel({
     dataSubmit,
-    response,
-    setResponse,
   });
   const formOptions = { resolver: yupResolver(validationSchema) };
 

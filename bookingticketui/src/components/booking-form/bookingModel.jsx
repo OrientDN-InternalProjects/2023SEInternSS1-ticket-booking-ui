@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,12 @@ import { getAirports, getSearch } from "../../services/search-services";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AppContext } from "../../states/app-context";
 
-const bookingModel = ({ dataSubmit }, { setResponse }) => {
+const bookingModel = ({ dataSubmit }) => {
   const [boxvalue, setBoxvalue] = useState([]);
+
+  const { setResponse } = useContext(AppContext);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
@@ -34,8 +37,9 @@ const bookingModel = ({ dataSubmit }, { setResponse }) => {
       dataSubmit.arrival,
       dataSubmit.dateDepart
     );
-    result = await result.data;
-    if (result.isError === true) {
+    // result = await result.data;
+
+    if (result?.isError) {
       toast.error("Invalid Flight !", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 5000,
