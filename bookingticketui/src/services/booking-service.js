@@ -1,36 +1,23 @@
 import axios from "axios";
 
 export const baseURL = 'https://localhost:7089'
-
+export const axiosBaseURL = axios.create({
+    baseURL: baseURL
+});
 export const requestBooking = async (flight)=>{
-    await axios.post("https://localhost:7089/api/booking/request-booking", {
+     response = await axiosBaseURL.post("https://localhost:7089/api/booking/request-booking", {
         contact: flight.contact,
         isRoundFlight: flight.isRoundFlight,
         isBusiness: flight.isBusiness,
         userId: flight.userId,
         flightId: flight.flightId,
         roundFlightId: flight.roundFlightId,
-        passes: [
-          {
-            "firstName": "Thuy",
-            "lastName": "nguyen",
-            "dateOfBirth": "string",
-            "nation": "string",
-            "identityCard": "string",
-            "provideNa": "string",
-            "expDate": "string"
-          },
-             {
-            "firstName": "NGoc ",
-            "lastName": "tran",
-            "dateOfBirth": "string",
-            "nation": "string",
-            "identityCard": "string",
-            "provideNa": "string",
-            "expDate": "string"
-          }
-        ],
-        services: []
+        passes: flight.passes,
+        services: flight.services
       });
-      alert("Create contact sucessful");
+      return response;
+};
+
+export const getListServices =()=>{
+    return axiosBaseURL.get('/api/Booking/get-service')
 };

@@ -28,25 +28,9 @@ const ContactForm = () => {
       },
     });
   };
-  const submitForm = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.post("https://localhost:7089/api/Booking/request-contact", {
-        firstName: conFom.firstName,
-        middleName: conFom.middleName,
-        lastName: conFom.lastName,
-        email: conFom.email,
-        phoneNumber: conFom.phoneNumber,
-      });
-      alert("Create contact sucessful");
-    } catch (error) {
-      console.log(error);
-      alert("Create fail");
-    }
-  };
 
   return (
-    <Container className="w-50 p-3 mb-2 bg-light text-dark">
+    <Container className="w-75 p-3 mb-2 bg-light text-dark">
       <h1 id="contactheader">Contact details</h1>
 
       <form>

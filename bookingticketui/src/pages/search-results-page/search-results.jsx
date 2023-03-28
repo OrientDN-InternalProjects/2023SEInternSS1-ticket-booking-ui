@@ -26,6 +26,7 @@ const ListSearch = () => {
       ["flightId"]: id,
       ["roundFlightId"]: id,
       ["isBusiness"]: true,
+      ["service"]: [""],
     });
   };
 
@@ -35,6 +36,7 @@ const ListSearch = () => {
       ["flightId"]: id,
       ["roundFlightId"]: id,
       ["isBusiness"]: false,
+      ["service"]: [""],
     });
   };
 

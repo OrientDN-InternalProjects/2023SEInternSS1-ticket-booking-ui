@@ -51,7 +51,7 @@ const Passenger = () => {
   }, [index]);
   console.log(inputFields);
   return (
-    <Container className="w-50 p-3 mb-2 text-dark">
+    <Container className="w-75 p-3 mb-2 text-dark">
       <form>
         {inputFields.map((value, index) => {
           return (
