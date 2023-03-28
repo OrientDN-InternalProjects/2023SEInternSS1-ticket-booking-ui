@@ -1,15 +1,8 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useContext } from "react";
 import "../../pages/flights-page/list-model.css";
 import Table from "react-bootstrap/Table";
-import {
-  Container,
-  Col,
-  Form,
-  Row,
-  Button,
-  InputGroup,
-  Card,
-} from "react-bootstrap";
+import { AppContext } from "../../states/app-context";
+import { Container, Col, Row, Button, Card } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSearch } from "../../services/search-services";
 import Search from "../../components/search/Search";
@@ -18,6 +11,7 @@ const ListSearch = () => {
   const navigate = useNavigate();
   let search = useParams();
 
+  const { setFlight } = useContext(AppContext);
   useEffect(() => {
     (async () => {
       let result = await getSearch(search.depart, search.apart, search.date);
@@ -28,10 +22,20 @@ const ListSearch = () => {
 
   const handleBusinessClick = async (event, id) => {
     navigate(`/passenger-form/${id}`);
+    setFlight({
+      ["flightId"]: id,
+      ["roundFlightId"]: id,
+      ["isBusiness"]: true,
+    });
   };
 
   const handleEconomyClick = async (event, id) => {
     navigate(`/passenger-form/${id}`);
+    setFlight({
+      ["flightId"]: id,
+      ["roundFlightId"]: id,
+      ["isBusiness"]: false,
+    });
   };
 
   const VND = new Intl.NumberFormat("vi-VN", {
@@ -108,7 +112,7 @@ const ListSearch = () => {
                           <Button
                             color="primary"
                             size="sm"
-                            onClick={(e) => handleEconomyClick(e, data.id)}
+                            onClick={(e) => handleBusinessClick(e, data.id)}
                           >
                             Booking Business
                           </Button>

@@ -9,9 +9,34 @@ export const AppProvider = ({ children }) => {
     dateDepart: "",
     numPeople: 1.0,
   });
-  const [flight, setFlight] = useState();
+  const [flight, setFlight] = useState({
+    contact: {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+    },
+    isRoundFlight: false,
+    isBusiness: false,
+    userId: null,
+    flightId: "",
+    roundFlightId: "",
+    passes: [
+      {
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        nation: "",
+        identityCard: "",
+        provideNa: "",
+        expDate: "",
+      },
+    ],
+    services: [],
+  });
   return (
-    <AppContext.Provider value={{ response, setResponse }}>
+    <AppContext.Provider value={{ response, setResponse, setFlight, flight }}>
       {children}
     </AppContext.Provider>
   );

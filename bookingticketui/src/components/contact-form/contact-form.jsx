@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container } from "react-bootstrap";
 const err = "Error has occured";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../states/app-context";
 const ContactForm = () => {
   const navigate = useNavigate();
   const [formStatus, setFormStatus] = useState("Send");
@@ -13,14 +14,20 @@ const ContactForm = () => {
     email: "",
     phoneNumber: "",
   });
-
+  const { flight, setFlight } = useContext(AppContext);
   const handleChange = (event) => {
     setConFom({
       ...conFom,
       [event.target.name]: event.target.value,
     });
+    setFlight({
+      ...flight,
+      ["contact"]: {
+        ...conFom,
+        [event.target.name]: event.target.value,
+      },
+    });
   };
-
   const submitForm = async (event) => {
     event.preventDefault();
     try {
@@ -32,11 +39,9 @@ const ContactForm = () => {
         phoneNumber: conFom.phoneNumber,
       });
       alert("Create contact sucessful");
-      navigate("/passenger-form");
     } catch (error) {
       console.log(error);
       alert("Create fail");
-      navigate("/passenger-form");
     }
   };
 
@@ -44,7 +49,7 @@ const ContactForm = () => {
     <Container className="w-50 p-3 mb-2 bg-light text-dark">
       <h1 id="contactheader">Contact details</h1>
 
-      <form onSubmit={submitForm}>
+      <form>
         {/* First Name form   */}
         <div className="mb-3">
           <label className="form-label" htmlFor="FirstName">
@@ -118,10 +123,6 @@ const ContactForm = () => {
             required
           />
         </div>
-
-        <button className="btn btn-danger" type="submit">
-          {formStatus}
-        </button>
       </form>
     </Container>
   );
