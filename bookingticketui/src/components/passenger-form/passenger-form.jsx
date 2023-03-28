@@ -14,7 +14,7 @@ const Passenger = () => {
       lastName: "",
       dateOfBirth: "",
       nation: "",
-      identifyCard: "",
+      identityCard: "",
       provideNa: "",
       expDate: "",
     },
@@ -27,9 +27,9 @@ const Passenger = () => {
     setInputFields(data);
     setFlight({
       ...flight,
-      ["passes"]: {
+      ["passes"]: [
         ...inputFields,
-      },
+    ],
     });
   };
 
@@ -40,7 +40,7 @@ const Passenger = () => {
       lastName: "",
       dateOfBirth: "",
       nation: "",
-      identifyCard: "",
+      identityCard: "",
       provideNa: "",
       expDate: "",
     };
@@ -127,7 +127,7 @@ const Passenger = () => {
                       <Form.Group as={Col} controlId="formGridCity">
                         <Form.Label>IdentityCard</Form.Label>
                         <Form.Control
-                          name="identifyCard"
+                          name="identityCard"
                           onChange={(event) => handleFormChange(index, event)}
                         />
                       </Form.Group>

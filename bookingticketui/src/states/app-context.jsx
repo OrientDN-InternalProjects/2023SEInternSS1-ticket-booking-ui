@@ -33,7 +33,7 @@ export const AppProvider = ({ children }) => {
         expDate: "",
       },
     ],
-    services: [],
+    extraServices: [],
   });
   return (
     <AppContext.Provider value={{ response, setResponse, setFlight, flight }}>

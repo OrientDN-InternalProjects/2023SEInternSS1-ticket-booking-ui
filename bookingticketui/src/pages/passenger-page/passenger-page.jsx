@@ -5,39 +5,65 @@ import { AppContext } from "../../states/app-context";
 import { requestBooking } from "../../services/booking-service";
 import { Container, Card, Col, Form, Row, Button } from "react-bootstrap";
 import { getListServices } from "../../services/booking-service";
+import { ToastContainer, toast } from "react-toastify";
 
 const PassengerPage = () => {
-  const { flight } = useContext(AppContext);
+  const { flight, setFlight } = useContext(AppContext);
   const [boxvalue, setBoxvalue] = useState([]);
   const [selected, setSelected] = useState([""]);
-  const [checkedState, setCheckedState] = useState(
-    new Array(boxvalue.length).fill(false)
-  );
+  const [checked, setChecked] = useState([]);
+  const [linkPay, setLinkPay] = useState({
+    orderType: "booking",
+    bookingId: "",
+  });
   useEffect(() => {
     getListServices().then((res) => setBoxvalue(res.data.result));
   }, []);
-  const handleOnChange = (position) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-
-    setCheckedState(updatedCheckedState);
-
-    const totalPrice = updatedCheckedState.reduce((currentState, index) => {
-      if (currentState === true) {
-        return setSelected(selected.concat(boxvalue[index]));
-      }
-      return selected.filter((fruit) => fruit !== boxvalue[index]);
-    }, 0);
-
-    setSelected(totalPrice);
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
   };
-  console.log(selected);
-  const handleSubmit = (e) => {
+  console.log(checked);
+  const checkedItems = checked.length
+    ? checked.reduce((total, item) => {
+        return total + ", " + item;
+      })
+    : "";
+
+  const isChecked = (item) =>
+    checked.includes(item) ? "checked-item" : "not-checked-item";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(flight);
-    const response = requestBooking(flight);
-    alert(response.message);
+    setFlight({
+      ...flight,
+      ["extraServices"]: [...checked],
+    });
+    let response = await requestBooking(flight);
+    if (response?.isError) {
+      toast.error("Booking fail !", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }else{
+     setLinkPay({
+      ...linkPay,
+      ["bookingId"]: response,
+    });
+    console.log(linkPay);
+    
+  }
   };
   return (
     <Container>
@@ -60,30 +86,28 @@ const PassengerPage = () => {
         </Col>
         <Col xs={3}>
           <Card xs={5}>
-            {boxvalue.map((item, index) => {
-              return (
-                <div key={index}>
-                  <div className="toppings-list-item">
-                    <div className="left-section">
-                      <input
-                        type="checkbox"
-                        id={`custom-checkbox-${index}`}
-                        name={item.nameService}
-                        value={item.id}
-                        checked={checkedState[index]}
-                        onChange={() => handleOnChange(index)}
-                      />
-                      <label htmlFor={`custom-checkbox-${index}`}>
-                        {item.nameService} : {item.price}
-                      </label>
-                    </div>
+            <div className="checkList">
+              <div className="title">Your CheckList:</div>
+              <div className="list-container">
+                {boxvalue.map((item, index) => (
+                  <div key={index}>
+                    <input
+                      value={item.id}
+                      type="checkbox"
+                      onChange={handleCheck}
+                    />
+                    <span className={isChecked(item.nameService)}>
+                      {item.nameService}
+                    </span>
                   </div>
-                </div>
-              );
-            })}
+                ))}
+              </div>
+              <div>{`Items checked are: ${checkedItems}`}</div>
+            </div>
           </Card>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 };
