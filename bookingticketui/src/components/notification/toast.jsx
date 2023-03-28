@@ -3,31 +3,20 @@ import React, { useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const showToastMessage = (message, type) => {
+const displayAlert = (message, type) => {  
     if(type === "success") 
     {
-    return toast.success(message, {
-      position: toast.POSITION.TOP_CENTER
-    });
+      return toast.success(message, {
+         position: toast.POSITION.TOP_CENTER });
     }
 
     if(type === "error") 
     {
       return toast.error(message, {
-        position: toast.POSITION.TOP_CENTER
-      });
+        position: toast.POSITION.TOP_CENTER });
     } 
 }
 
-  function displayAlert(message, type)  
-  {  
-    return (
-      <div>
-          {showToastMessage(message, type)}
-      </div>
-    )
-  }
-
-export {showToastMessage, displayAlert}
+export {displayAlert}
 
 

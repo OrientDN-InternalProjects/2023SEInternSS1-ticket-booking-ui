@@ -1,28 +1,31 @@
-.ticket-container
-{
-    flex-direction: column;
-   
+.ticket-container {
+  flex-direction: column;
 }
 
-.input-box
-{
-    margin: auto;
-    display: block;
-    justify-content: center;
-    width: 20%;
+.input-box {
+  margin: auto;
+  display: block;
+  justify-content: center;
+  width: 20%;
 }
 
-.action-button
-{
-    margin: auto;
-    display: block;
-    margin-top: 20px;
-    background: #0066A2;
-	color: white;
-	border-style: outset;
-	border-color: #0066A2;
-	height: 50px;
-	width: 100px;
-	font: bold15px arial,sans-serif;
-	text-shadow: none;
+.action-button {
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+  background: #0066a2;
+  color: white;
+  border-style: outset;
+  border-color: #0066a2;
+  height: 50px;
+  width: 100px;
+  font: bold15px arial, sans-serif;
+  text-shadow: none;
+}
+
+.information {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { createAuthenticateAPIEndpoint, ENDPOINTS } from "/src/api/AuthenticateAPI";
+import { createAuthenticateAPIEndpoint, ENDPOINTS } from "/src/api/api-collector";
 import { validateEmail, validatePassword, validateConfirmPassword } from "/src/components/sign-up/sign-up-validation";
 import { useFormik, withFormik } from "formik";
 import * as Yup from "yup";

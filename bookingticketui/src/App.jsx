@@ -4,8 +4,9 @@ import Booking from "./components/booking-form/index";
 import ListSearch from "./pages/search-results-page/search-results";
 import ContactForm from "./components/contact-form/contact-form";
 import PassengerPage from "./pages/passenger-page/passenger-page";
-import SignUp from './components/sign-up/sign-up'
+import SignUp from "./components/sign-up/sign-up";
 import { Route, Routes } from "react-router";
+import { ToastContainer } from "react-toastify";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/navbar";
 import Ticket from "./components/ticket-form/ticket-form";
@@ -19,8 +20,8 @@ const App = () => {
         <Route index path="/" element={<Booking setResponse={setResponse} />} />
         <Route path="/contact-detail" element={<ContactForm />} />
         <Route index path="/list-flight" element={<ListFlight />} />
-        <Route path='/sign-up' element={<SignUp/>} />
-        <Route path='/ticket-form' element={<Ticket/>} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/ticket-form" element={<Ticket />} />
         <Route
           index
           path="/list-search/:depart/:apart/:date"
@@ -29,6 +30,7 @@ const App = () => {
 
         <Route index path="/passenger-form" element={<PassengerPage />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 };
