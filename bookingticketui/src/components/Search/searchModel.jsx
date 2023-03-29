@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAirports, getSearch } from "../../services/search-services";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AppContext } from "../../states/app-context";
 
-const searchModel = ({ dataSubmit, setResponse, response }) => {
+const searchModel = ({ dataSubmit }) => {
   const [boxvalue, setBoxvalue] = useState([]);
   const navigate = useNavigate();
+  const { response, setResponse } = useContext(AppContext);
   useEffect(() => {
     (async () => {
       await getAirports().then((res) => setBoxvalue(res.data.result));
@@ -24,6 +26,7 @@ const searchModel = ({ dataSubmit, setResponse, response }) => {
       )
       .required("Arrival is required"),
     dateDepart: Yup.string().required("Date of depart is required"),
+    numPeople: Yup.number().required("Must have passenger"),
   });
 
   const onSubmit = async () => {
@@ -32,10 +35,9 @@ const searchModel = ({ dataSubmit, setResponse, response }) => {
       dataSubmit.arrival,
       dataSubmit.dateDepart
     );
-    const res = await result.data;
-    if (res.isError === true) {
+    if (result?.isError) {
       toast.error("Invalid Flight !", {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

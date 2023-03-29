@@ -1,13 +1,15 @@
 import React from "react";
 import { Container, Col, Form, Row, Button } from "react-bootstrap";
-import { useState, useEffect, Fragment } from "react";
-import { getAirports } from "../../services/search-services";
+import { useState, useEffect, Fragment, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import searchModel from "./searchModel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Search = ({ response, setResponse }) => {
+import { AppContext } from "../../states/app-context";
+const Search = () => {
+  const { response } = useContext(AppContext);
+
   const [dataSubmit, setDataSubmit] = useState({
     depart: "",
     arrival: "",
@@ -26,8 +28,6 @@ const Search = ({ response, setResponse }) => {
   };
   const { validationSchema, boxvalue, onSubmit } = searchModel({
     dataSubmit,
-    response,
-    setResponse,
   });
   const formOptions = { resolver: yupResolver(validationSchema) };
 
@@ -38,7 +38,7 @@ const Search = ({ response, setResponse }) => {
     <Container className="w-50 p-3 mb-2 bg-light text-dark">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
-          <Col xs={4}>
+          <Col xs={3}>
             <Form.Label>Depart airport</Form.Label>
             <Form.Select
               size="sm"
@@ -56,7 +56,7 @@ const Search = ({ response, setResponse }) => {
             </Form.Select>
             <div style={{ color: "red" }}>{errors.depart?.message}</div>
           </Col>
-          <Col xs={4}>
+          <Col xs={3}>
             <Form.Label>Arival airport</Form.Label>
             <Form.Select
               size="sm"
@@ -84,6 +84,22 @@ const Search = ({ response, setResponse }) => {
                 {...register("dateDepart")}
                 onChange={updateChange}
                 placeholder={response.dateDepart}
+              />
+            </Form.Group>
+            <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
+          </Col>
+          <Col xs={2}>
+            <Form.Group controlId="dob">
+              <Form.Label>Number People</Form.Label>
+              <Form.Control
+                type="number"
+                name="numPeople"
+                class="form-control"
+                {...register("numPeople")}
+                max={7}
+                min={1}
+                onChange={updateChange}
+                placeholder={response.numPeople}
               />
             </Form.Group>
             <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
