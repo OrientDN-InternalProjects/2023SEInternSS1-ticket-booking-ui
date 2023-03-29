@@ -56,7 +56,7 @@ const PassengerPage = () => {
     } else {
       let payInfor = { orderType: "booking", bookingId: response };
       let link = await requestPayment(payInfor);
-      window.location.replace(link);
+      window.location.href = link;
     }
   };
   return (
