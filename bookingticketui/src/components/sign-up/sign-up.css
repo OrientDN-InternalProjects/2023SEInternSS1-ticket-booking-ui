@@ -1,15 +1,13 @@
-.signup-container
-{
-    flex-direction: column;
-    justify-content: center;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 24px;
-    height: 200px;
-    width: 400px;
+.signup-container {
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  height: 200px;
+  width: 400px;
 }
 
-#contactheader
-{
-    text-align: center;
-    color: blue;
+#contactheader {
+  text-align: center;
+  color: blue;
 }

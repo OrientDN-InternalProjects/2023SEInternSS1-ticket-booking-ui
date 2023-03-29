@@ -8,9 +8,11 @@ import {
   validateEmail,
   validatePassword,
   validateConfirmPassword,
+  validateName,
 } from "/src/components/sign-up/sign-up-validation";
 import { useFormik, withFormik } from "formik";
 import * as Yup from "yup";
+import { displayAlert } from "../notification/toast";
 import "./sign-up.css";
 
 const SignUpForm = () => {
@@ -31,10 +33,18 @@ const SignUpForm = () => {
       firstName: Yup.string()
         .min(2, "Mininum 2 characters")
         .max(15, "Max is 15 characters")
+        .matches(
+          /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
+          "Please enter valid name"
+        )
         .required("Please enter your first name!"),
       lastName: Yup.string()
         .min(2, "Mininum 2 characters")
         .max(15, "Max is 15 characters")
+        .matches(
+          /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
+          "Please enter valid name"
+        )
         .required("Please enter your last name!"),
       email: Yup.string()
         .email("Invalid email format")
@@ -52,36 +62,38 @@ const SignUpForm = () => {
         .required("Please re-enter password!"),
     }),
   });
+
   const submitForm = async (event) => {
     event.preventDefault();
-    console.log(conForm.values.confirmPassword);
     if (
       !validateEmail(conForm.values.email) ||
       !validatePassword(conForm.values.password) ||
       !validateConfirmPassword(
         conForm.values.password,
         conForm.values.confirmPassword
-      )
+      ) ||
+      !validateName(conForm.lastName) ||
+      !validateName(conForm.firstName)
     ) {
-      alert("Register failed");
-    }
-
-    const response = await createAuthenticateAPIEndpoint(ENDPOINTS.signup).post(
-      {
+      displayAlert("Register failed", "error");
+    } else {
+      const response = await createAuthenticateAPIEndpoint(
+        ENDPOINTS.signup
+      ).post({
         firstName: conForm.values.firstName,
         lastName: conForm.values.lastName,
         email: conForm.values.email,
         password: conForm.values.password,
         confirmPassword: conForm.values.confirmPassword,
         isAdmin: conForm.values.isAdmin,
-      }
-    );
+      });
+    }
 
     if (response.data.result?.status == true) {
       // We intent to redirect to the login page
       // this block will be added after finish login page
     } else {
-      alert(response.data.result?.message);
+      displayAlert(response.data.result?.message, "error");
     }
   };
 

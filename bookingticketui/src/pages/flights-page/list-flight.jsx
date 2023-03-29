@@ -28,7 +28,6 @@ const ListFlight = () => {
     navigate("/passenger-form");
   };
 
-  console.log("result", data);
   return (
     <div>
       <Container>
