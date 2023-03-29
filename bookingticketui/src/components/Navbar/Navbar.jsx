@@ -29,6 +29,9 @@ const Navbar = () => {
             <li>
               <a href="/sign-up">Sign Up</a>
             </li>
+            <li>
+              <a href="/ticket-form">Search Ticket</a>
+            </li>
           </ul>
           <h1 class="logo">
             <img src="https://img.icons8.com/external-justicon-lineal-color-justicon/64/null/external-flight-mode-notifications-justicon-lineal-color-justicon.png" />
