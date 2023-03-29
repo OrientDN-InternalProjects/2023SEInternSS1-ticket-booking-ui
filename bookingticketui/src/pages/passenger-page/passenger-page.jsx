@@ -20,14 +20,20 @@ const PassengerPage = () => {
     getListServices().then((res) => setBoxvalue(res.data.result));
   }, []);
   const handleCheck = (event) => {
-    var updatedList = [...checked];
     if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
+      setChecked([...checked, event.target.value]);
     } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
+      setChecked(checked.splice(checked.indexOf(event.target.value), 1));
     }
-    setChecked(updatedList);
   };
+
+  useEffect(() => {
+    setFlight({
+      ...flight,
+      extraServices: checked,
+    });
+  }, [checked]);
+
   console.log(checked);
   const checkedItems = checked.length
     ? checked.reduce((total, item) => {
@@ -40,10 +46,6 @@ const PassengerPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFlight({
-      ...flight,
-      ["extraServices"]: [...checked],
-    });
     let response = await requestBooking(flight);
     if (response?.isError) {
       toast.error("Booking fail !", {
@@ -56,15 +58,16 @@ const PassengerPage = () => {
         progress: undefined,
         theme: "colored",
       });
-    }else{
-     setLinkPay({
-      ...linkPay,
-      ["bookingId"]: response,
-    });
-    console.log(linkPay);
-    
-  }
+    } else {
+      setLinkPay({
+        ...linkPay,
+        ["bookingId"]: response,
+      });
+      console.log(linkPay);
+    }
   };
+
+  console.log(flight);
   return (
     <Container>
       <Row>
