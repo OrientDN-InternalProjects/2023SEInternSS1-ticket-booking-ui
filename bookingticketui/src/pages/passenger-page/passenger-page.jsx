@@ -2,30 +2,30 @@ import React, { useContext, useEffect, useState } from "react";
 import Passenger from "../../components/passenger-form/passenger-form";
 import ContactForm from "../../components/contact-form/contact-form";
 import { AppContext } from "../../states/app-context";
-import { requestBooking } from "../../services/booking-service";
+import { requestBooking, requestPayment } from "../../services/booking-service";
 import { Container, Card, Col, Form, Row, Button } from "react-bootstrap";
-import { getListServices } from "../../services/booking-service";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import passengerModel from "./passenger-page-model";
+import FlightInfo from "../../components/flight-info/flight-info";
 
 const PassengerPage = () => {
   const { flight, setFlight } = useContext(AppContext);
-  const [boxvalue, setBoxvalue] = useState([]);
-  const [selected, setSelected] = useState([""]);
+
   const [checked, setChecked] = useState([]);
-  const [linkPay, setLinkPay] = useState({
-    orderType: "booking",
-    bookingId: "",
-  });
-  useEffect(() => {
-    getListServices().then((res) => setBoxvalue(res.data.result));
-  }, []);
-  const handleCheck = (event) => {
+
+  const navigate = useNavigate();
+
+  const { boxvalue } = passengerModel();
+  const handleCheck = (id, event) => {
     if (event.target.checked) {
-      setChecked([...checked, event.target.value]);
+      setChecked([...checked, id]);
     } else {
-      setChecked(checked.splice(checked.indexOf(event.target.value), 1));
+      setChecked(checked.filter((item) => item != id));
     }
   };
+
+  console.log(checked);
 
   useEffect(() => {
     setFlight({
@@ -35,11 +35,6 @@ const PassengerPage = () => {
   }, [checked]);
 
   console.log(checked);
-  const checkedItems = checked.length
-    ? checked.reduce((total, item) => {
-        return total + ", " + item;
-      })
-    : "";
 
   const isChecked = (item) =>
     checked.includes(item) ? "checked-item" : "not-checked-item";
@@ -59,57 +54,67 @@ const PassengerPage = () => {
         theme: "colored",
       });
     } else {
-      setLinkPay({
-        ...linkPay,
-        ["bookingId"]: response,
-      });
-      console.log(linkPay);
+      let payInfor = { orderType: "booking", bookingId: response };
+      let link = await requestPayment(payInfor);
+      window.location.replace(link);
     }
   };
-
-  console.log(flight);
   return (
     <Container>
-      <Row>
-        <Col xs={8}>
-          <div>
-            <ContactForm />
-          </div>
-          <div>
-            <Passenger />
-          </div>
-          <div class="text-center">
-            <button
-              class="btn btn-primary text-uppercase"
-              onClick={(e) => handleSubmit(e)}
-            >
-              Continue to Payment
-            </button>
-          </div>
-        </Col>
-        <Col xs={3}>
-          <Card xs={5}>
-            <div className="checkList">
-              <div className="title">Your CheckList:</div>
-              <div className="list-container">
-                {boxvalue.map((item, index) => (
-                  <div key={index}>
-                    <input
-                      value={item.id}
-                      type="checkbox"
-                      onChange={handleCheck}
-                    />
-                    <span className={isChecked(item.nameService)}>
-                      {item.nameService}
-                    </span>
-                  </div>
-                ))}
+      <Card className="bg-light">
+        <Card.Body>
+          <Row>
+            <Col xs={8}>
+              <div>
+                <ContactForm />
               </div>
-              <div>{`Items checked are: ${checkedItems}`}</div>
-            </div>
-          </Card>
-        </Col>
-      </Row>
+              <div>
+                <Passenger />
+              </div>
+              <div class="text-center">
+                <button
+                  class="btn btn-primary mb-5 text-uppercase"
+                  onClick={(e) => handleSubmit(e)}
+                >
+                  Continue to Payment
+                </button>
+              </div>
+            </Col>
+            <Col xs={3}>
+              <Row>
+                <FlightInfo />
+              </Row>
+              <Row>
+                <Col md="20">
+                  <Card className="bg-light" style={{ width: "18rem" }}>
+                    <Card.Body>
+                      <div className="checkList">
+                        <div className="title">Extra services:</div>
+                        <div className="list-container">
+                          {boxvalue.map((item, index) => (
+                            <div key={index}>
+                              <input
+                                value={item.price}
+                                type="checkbox"
+                                onChange={(event) =>
+                                  handleCheck(item.id, event)
+                                }
+                              />
+                              <span className={isChecked(item.nameService)}>
+                                {item.nameService}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
       <ToastContainer />
     </Container>
   );

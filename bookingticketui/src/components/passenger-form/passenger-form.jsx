@@ -27,9 +27,7 @@ const Passenger = () => {
     setInputFields(data);
     setFlight({
       ...flight,
-      ["passes"]: [
-        ...inputFields,
-    ],
+      ["passes"]: [...inputFields],
     });
   };
 
@@ -59,7 +57,11 @@ const Passenger = () => {
               key={index}
               className="justify-content-center align-items-center m-5"
             >
-              <Card>
+              <Card
+                style={{
+                  backgroundImage: `url("https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3798.jpg?w=1380&t=st=1680083843~exp=1680084443~hmac=dea1852b16d13f2c572206eaa0f1e6fd1e6f8d08103e9a3cfb3bd4a3f35dbdb4")`,
+                }}
+              >
                 <Card.Body className="px-4">
                   <h3 className="fw-bold mb-4 pb-2 pb-md-0 mb-md-5">
                     Passenger {index + 1}
@@ -73,6 +75,7 @@ const Passenger = () => {
                           name="firstName"
                           type="text"
                           onChange={(event) => handleFormChange(index, event)}
+                          required
                         />
                       </Form.Group>
                     </Col>
@@ -84,6 +87,7 @@ const Passenger = () => {
                           name="lastName"
                           type="text"
                           onChange={(event) => handleFormChange(index, event)}
+                          required
                         />
                       </Form.Group>
                     </Col>
@@ -97,6 +101,7 @@ const Passenger = () => {
                           name="dateOfBirth"
                           placeholder="MM/dd/YYYY: 03/23/2023"
                           onChange={(event) => handleFormChange(index, event)}
+                          required
                         />
                       </Form.Group>
                     </Col>
@@ -107,6 +112,7 @@ const Passenger = () => {
                           name="nation"
                           type="text"
                           onChange={(event) => handleFormChange(index, event)}
+                          required
                         />
                       </Form.Group>
                     </Col>
@@ -119,6 +125,7 @@ const Passenger = () => {
                         <Form.Control
                           name="provideNa"
                           onChange={(event) => handleFormChange(index, event)}
+                          required
                         />
                       </Form.Group>
                     </Col>
@@ -129,6 +136,7 @@ const Passenger = () => {
                         <Form.Control
                           name="identityCard"
                           onChange={(event) => handleFormChange(index, event)}
+                          required
                         />
                       </Form.Group>
                     </Col>
@@ -139,6 +147,7 @@ const Passenger = () => {
                       <Form.Control
                         name="expDate"
                         onChange={(event) => handleFormChange(index, event)}
+                        required
                       />
                     </Form.Group>
                   </Row>

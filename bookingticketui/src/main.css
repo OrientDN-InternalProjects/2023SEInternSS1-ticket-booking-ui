@@ -179,7 +179,7 @@
 }
 
 body {
-  background-image: url(../src/assets/flightImage.jpg);
+    background: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%);
   margin: 0;
   padding: 0;
   height:1000px;
