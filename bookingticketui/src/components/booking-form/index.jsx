@@ -8,14 +8,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import bookingModel from "./bookingModel";
 
-const Booking = ({ setResponse }) => {
-  const [numPeople, setnumPeople] = useState(1);
-
+const Booking = () => {
   const [dataSubmit, setDataSubmit] = useState({
     depart: "",
     arrival: "",
     dateDepart: "",
-    numPeople: "",
+    numPeople: 1.0,
   });
   console.log(dataSubmit);
 
@@ -27,10 +25,7 @@ const Booking = ({ setResponse }) => {
       [fieldName]: e.target.value,
     }));
   };
-  const { validationSchema, boxvalue, onSubmit } = bookingModel(
-    { dataSubmit },
-    { setResponse }
-  );
+  const { validationSchema, boxvalue, onSubmit } = bookingModel({ dataSubmit });
   const formOptions = { resolver: yupResolver(validationSchema) };
 
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -126,7 +121,7 @@ const Booking = ({ setResponse }) => {
                   {...register("numPeople")}
                   onChange={updateChange}
                 />
-                <div style={{ color: "red" }}>{errors.dateDepart?.message}</div>
+                <div style={{ color: "red" }}>{errors.numPeople?.message}</div>
                 <label>Number People</label>
               </div>
             </div>

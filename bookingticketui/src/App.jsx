@@ -7,17 +7,19 @@ import PassengerPage from "./pages/passenger-page/passenger-page";
 import SignUp from "./components/sign-up/sign-up";
 import { Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
-import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/navbar";
 import Ticket from "./components/ticket-form/ticket-form";
 
 const App = () => {
-  const [response, setResponse] = useState({});
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route index path="/" element={<Booking setResponse={setResponse} />} />
+        <Route index path="/" element={<Booking />} />
+        <Route
+          path="/list-search/:depart/:apart/:date"
+          element={<ListSearch />}
+        />
         <Route path="/contact-detail" element={<ContactForm />} />
         <Route index path="/list-flight" element={<ListFlight />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -27,8 +29,7 @@ const App = () => {
           path="/list-search/:depart/:apart/:date"
           element={<ListSearch response={response} />}
         />
-
-        <Route index path="/passenger-form" element={<PassengerPage />} />
+        <Route index path="/passenger-form/:id" element={<PassengerPage />} />
       </Routes>
       <ToastContainer />
     </div>

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "../booking-form/booking.css";
 import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAirports, getSearch } from "../../services/search-services";
@@ -8,14 +7,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AppContext } from "../../states/app-context";
 
-const bookingModel = ({ dataSubmit }) => {
+const searchModel = ({ dataSubmit }) => {
   const [boxvalue, setBoxvalue] = useState([]);
-
-  const { setResponse } = useContext(AppContext);
   const navigate = useNavigate();
+  const { response, setResponse } = useContext(AppContext);
   useEffect(() => {
     (async () => {
-      getAirports().then((res) => setBoxvalue(res.data.result));
+      await getAirports().then((res) => setBoxvalue(res.data.result));
     })();
   }, []);
 
@@ -37,8 +35,6 @@ const bookingModel = ({ dataSubmit }) => {
       dataSubmit.arrival,
       dataSubmit.dateDepart
     );
-    // result = await result.data;
-
     if (result?.isError) {
       toast.error("Invalid Flight !", {
         position: toast.POSITION.TOP_RIGHT,
@@ -50,7 +46,9 @@ const bookingModel = ({ dataSubmit }) => {
         progress: undefined,
         theme: "colored",
       });
-      navigate("/");
+      navigate(
+        `/list-search/${response.depart}/${response.arrival}/${response.dateDepart}`
+      );
     } else {
       setResponse(dataSubmit);
       navigate(
@@ -65,4 +63,4 @@ const bookingModel = ({ dataSubmit }) => {
   };
 };
 
-export default bookingModel;
+export default searchModel;
