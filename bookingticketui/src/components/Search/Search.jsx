@@ -16,7 +16,6 @@ const Search = () => {
     dateDepart: "",
     numPeople: response.numPeople,
   });
-  console.log(dataSubmit);
 
   const updateChange = (e) => {
     e.preventDefault();

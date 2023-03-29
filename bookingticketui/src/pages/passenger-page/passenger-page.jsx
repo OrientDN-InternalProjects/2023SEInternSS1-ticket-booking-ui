@@ -34,7 +34,6 @@ const PassengerPage = () => {
     });
   }, [checked]);
 
-  console.log(checked);
   const checkedItems = checked.length
     ? checked.reduce((total, item) => {
         return total + ", " + item;
@@ -63,11 +62,9 @@ const PassengerPage = () => {
         ...linkPay,
         ["bookingId"]: response,
       });
-      console.log(linkPay);
     }
   };
 
-  console.log(flight);
   return (
     <Container>
       <Row>
