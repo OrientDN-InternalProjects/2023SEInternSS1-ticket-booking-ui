@@ -50,7 +50,7 @@ const Ticket = () => {
       message = "Get succefully";
       type = "success";
       displayAlert(message, type);
-      setData(result);
+      setData(result.result?.data);
       setTickets(result.result?.data?.tickets);
       console.log(result.result?.data?.tickets);
       console.log(result);
@@ -95,8 +95,8 @@ const Ticket = () => {
                   justifyContent: "center",
                 }}
               >
-                {tickets.map((getcon) => (
-                  <Card key={getcon.passengerName} style={{ width: "25rem" }}>
+                {tickets.map((items) => (
+                  <Card key={items.passengerName} style={{ width: "25rem" }}>
                     <div className="Ticket-Person">
                       <Card.Img variant="top" src="src\assets\top-icon.png" />
 
@@ -108,46 +108,40 @@ const Ticket = () => {
 
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item>
-                          Name: {getcon.passengerName}
+                          Name: {items.passengerName}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                          Paid: {data.result?.data?.isPaid ? "Paid" : "Not yet"}
+                          Paid: {data.isPaid ? "Paid" : "Not yet"}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                          Number of people: {data.result?.data?.numberPeople}
+                          Number of people: {data.numberPeople}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                           Type of flight:
-                          {data.result?.data?.isRoundFlight
-                            ? "Round-trip"
-                            : "One-way"}
+                          {data.isRoundFlight ? "Round-trip" : "One-way"}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                           Boarding time:{" "}
                           {format(
-                            new Date(
-                              data.result?.data?.tickets[0].departureTime
-                            ),
+                            new Date(items.departureTime),
                             "dd/MMMM/yyyy"
                           )}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                          Seat Type: {data.result?.data?.tickets[0].seatClass}
+                          Seat Type: {items.seatClass}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                          Depart location:{" "}
-                          {data.result?.data?.tickets[0].locationFrom}
+                          Depart location: {items.locationFrom}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                          Arrival location:{" "}
-                          {data.result?.data?.tickets[0].locationTo}
+                          Arrival location: {items.locationTo}
                         </ListGroup.Item>
                       </ListGroup>
                     </div>

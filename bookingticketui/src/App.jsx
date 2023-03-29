@@ -24,11 +24,6 @@ const App = () => {
         <Route index path="/list-flight" element={<ListFlight />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/ticket-form" element={<Ticket />} />
-        <Route
-          index
-          path="/list-search/:depart/:apart/:date"
-          element={<ListSearch response={response} />}
-        />
         <Route index path="/passenger-form/:id" element={<PassengerPage />} />
       </Routes>
       <ToastContainer />

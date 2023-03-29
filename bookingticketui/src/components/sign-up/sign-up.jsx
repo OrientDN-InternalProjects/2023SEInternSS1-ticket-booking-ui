@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   createAuthenticateAPIEndpoint,
   ENDPOINTS,
-} from "/src/api/AuthenticateAPI";
+} from "/src/api/api-collector";
 import {
   validateEmail,
   validatePassword,
