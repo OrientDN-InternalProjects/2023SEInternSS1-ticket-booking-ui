@@ -18,6 +18,7 @@ const DATE_OPTIONS = {
 
 const Ticket = () => {
   const [data, setData] = useState({});
+  const [tickets, setTickets] = useState([]);
   const [formStatus, setFormStatus] = useState("Check");
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -50,6 +51,8 @@ const Ticket = () => {
       type = "success";
       displayAlert(message, type);
       setData(result);
+      setTickets(result.result?.data?.tickets);
+      console.log(result.result?.data?.tickets);
       console.log(result);
       setShow(true);
     }
@@ -84,60 +87,73 @@ const Ticket = () => {
 
           <div className="information">
             {show ? (
-              <Card style={{ width: "20rem" }}>
-                <Card.Img variant="top" src="src\assets\top-icon.png" />
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
+                {tickets.map((getcon) => (
+                  <Card key={getcon.passengerName} style={{ width: "25rem" }}>
+                    <div className="Ticket-Person">
+                      <Card.Img variant="top" src="src\assets\top-icon.png" />
 
-                <Card.Body>
-                  <Card.Title>Ticket reference code: {conForm.Code}</Card.Title>
-                </Card.Body>
+                      <Card.Body>
+                        <Card.Title>
+                          Ticket reference code: {conForm.Code}
+                        </Card.Title>
+                      </Card.Body>
 
-                <ListGroup className="list-group-flush">
-                  <ListGroup.Item>
-                    Seat Type: {data.result?.data?.tickets[0].passengerName}
-                  </ListGroup.Item>
+                      <ListGroup className="list-group-flush">
+                        <ListGroup.Item>
+                          Name: {getcon.passengerName}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Paid: {data.result?.data?.isPaid ? "Paid" : "Not yet"}
-                  </ListGroup.Item>
+                        <ListGroup.Item>
+                          Paid: {data.result?.data?.isPaid ? "Paid" : "Not yet"}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Number of people: {data.result?.data?.numberPeople}
-                  </ListGroup.Item>
+                        <ListGroup.Item>
+                          Number of people: {data.result?.data?.numberPeople}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Type of flight:
-                    {data.result?.data?.isRoundFlight
-                      ? "Round-trip"
-                      : "One-way"}
-                  </ListGroup.Item>
+                        <ListGroup.Item>
+                          Type of flight:
+                          {data.result?.data?.isRoundFlight
+                            ? "Round-trip"
+                            : "One-way"}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Boarding time:{" "}
-                    {format(
-                      new Date(data.result?.data?.tickets[0].departureTime),
-                      "dd/MMMM/yyyy"
-                    )}
-                  </ListGroup.Item>
+                        <ListGroup.Item>
+                          Boarding time:{" "}
+                          {format(
+                            new Date(
+                              data.result?.data?.tickets[0].departureTime
+                            ),
+                            "dd/MMMM/yyyy"
+                          )}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Seat Type: {data.result?.data?.tickets[0].seatClass}
-                  </ListGroup.Item>
+                        <ListGroup.Item>
+                          Seat Type: {data.result?.data?.tickets[0].seatClass}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Depart location:{" "}
-                    {data.result?.data?.tickets[0].locationFrom}
-                  </ListGroup.Item>
+                        <ListGroup.Item>
+                          Depart location:{" "}
+                          {data.result?.data?.tickets[0].locationFrom}
+                        </ListGroup.Item>
 
-                  <ListGroup.Item>
-                    Arrival location: {data.result?.data?.tickets[0].locationTo}
-                  </ListGroup.Item>
-                </ListGroup>
-
-                <Card.Body>
-                  <Card.Link href="#">Card Link</Card.Link>
-                  <Card.Link href="#">Another Link</Card.Link>
-                </Card.Body>
-              </Card>
+                        <ListGroup.Item>
+                          Arrival location:{" "}
+                          {data.result?.data?.tickets[0].locationTo}
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </Card>
+                ))}
+              </div>
             ) : null}
           </div>
         </form>
