@@ -44,10 +44,8 @@ const Passenger = () => {
     };
     for (let i = 1; i < index; i++) {
       setInputFields((prev) => [...prev, newfield]);
-      console.log(i);
     }
   }, [index]);
-  console.log(inputFields);
   return (
     <Container className="w-75 p-3 mb-2 text-dark">
       <form>

@@ -34,14 +34,12 @@ const Ticket = () => {
 
   const submitForm = async (event) => {
     event.preventDefault();
-    console.log(conForm.Code);
     let result = await createTicketAPIEndpoint(ENDPOINTS.bill, conForm.Code);
 
     let message = "";
     let type = "";
 
     if (result?.response?.status == 500) {
-      console.log(result?.response?.status);
       message = "The code does not exist";
       type = "error";
       displayAlert(message, type);
@@ -52,8 +50,6 @@ const Ticket = () => {
       displayAlert(message, type);
       setData(result.result?.data);
       setTickets(result.result?.data?.tickets);
-      console.log(result.result?.data?.tickets);
-      console.log(result);
       setShow(true);
     }
   };

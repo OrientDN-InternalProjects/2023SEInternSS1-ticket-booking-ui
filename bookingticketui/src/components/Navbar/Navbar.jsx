@@ -27,7 +27,10 @@ const Navbar = () => {
               <a href="#">Sign In</a>
             </li>
             <li>
-              <a href="#">Sign Up</a>
+              <a href="/sign-up">Sign Up</a>
+            </li>
+            <li>
+              <a href="/ticket-form">Search Ticket</a>
             </li>
           </ul>
           <h1 class="logo">

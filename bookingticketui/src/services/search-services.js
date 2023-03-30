@@ -21,7 +21,6 @@ export const getSearch = async (depart, arrival, date)=>{
             {})
         return response
     } catch (error) {
-        console.log(error);
         return {isError:true};
     }
 };
