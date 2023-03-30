@@ -9,7 +9,7 @@ import { Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./components/navbar/navbar";
 import Ticket from "./components/ticket-form/ticket-form";
-
+import SuccessPage from "./pages/success-page/success-page";
 const App = () => {
   return (
     <div className="App">
@@ -24,7 +24,16 @@ const App = () => {
         <Route index path="/list-flight" element={<ListFlight />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/ticket-form" element={<Ticket />} />
-        <Route index path="/passenger-form/:id" element={<PassengerPage />} />
+        <Route
+          index
+          path="/passenger-form/:id/:seattype"
+          element={<PassengerPage />}
+        />
+        <Route
+          index
+          path="/success"
+          element={<SuccessPage />}
+        />
       </Routes>
       <ToastContainer />
     </div>

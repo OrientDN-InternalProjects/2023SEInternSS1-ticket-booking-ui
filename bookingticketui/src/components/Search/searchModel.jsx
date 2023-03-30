@@ -25,7 +25,9 @@ const searchModel = ({ dataSubmit }) => {
         "The arrival airport must not same the depart airport"
       )
       .required("Arrival is required"),
-    dateDepart: Yup.string().required("Date of depart is required"),
+    dateDepart: Yup.date()
+      .min(new Date(), "Date is too early")
+      .required("Date of depart is required"),
     numPeople: Yup.number().required("Must have passenger"),
   });
 

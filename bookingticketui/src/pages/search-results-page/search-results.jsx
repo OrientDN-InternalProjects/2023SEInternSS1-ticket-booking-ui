@@ -21,7 +21,7 @@ const ListSearch = () => {
   }, [search.depart, search.arrival, search.dateDepart]);
 
   const handleBusinessClick = async (event, id) => {
-    navigate(`/passenger-form/${id}`);
+    navigate(`/passenger-form/${id}/${"business"}`);
     setFlight({
       ["flightId"]: id,
       ["roundFlightId"]: id,
@@ -30,7 +30,7 @@ const ListSearch = () => {
   };
 
   const handleEconomyClick = async (event, id) => {
-    navigate(`/passenger-form/${id}`);
+    navigate(`/passenger-form/${id}/${"economy"}`);
     setFlight({
       ["flightId"]: id,
       ["roundFlightId"]: id,
