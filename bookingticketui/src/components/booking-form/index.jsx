@@ -15,7 +15,6 @@ const Booking = () => {
     dateDepart: "",
     numPeople: 1.0,
   });
-  console.log(dataSubmit);
 
   const updateChange = (e) => {
     e.preventDefault();

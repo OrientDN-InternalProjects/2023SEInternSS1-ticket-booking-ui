@@ -44,7 +44,6 @@ const Passenger = () => {
     };
     for (let i = 1; i < index; i++) {
       setInputFields((prev) => [...prev, newfield]);
-      console.log(i);
     }
   }, [index]);
 
