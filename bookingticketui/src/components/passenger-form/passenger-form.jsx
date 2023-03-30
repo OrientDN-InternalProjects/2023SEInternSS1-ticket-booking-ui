@@ -47,10 +47,21 @@ const Passenger = () => {
       console.log(i);
     }
   }, [index]);
-  console.log(inputFields);
+
+  const [validated, setValidated] = useState(false);
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   return (
     <Container className="w-75 p-3 mb-2 text-dark">
-      <form>
+      <Form noValidate validated={validated} onBlur={handleSubmit}>
         {inputFields.map((value, index) => {
           return (
             <Row
@@ -77,6 +88,9 @@ const Passenger = () => {
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          Please input a firstName.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
 
@@ -89,6 +103,9 @@ const Passenger = () => {
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          Please input a lastName.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -97,12 +114,16 @@ const Passenger = () => {
                     <Col md="6">
                       <Form.Group className="mb-3" controlId="formGridAddress1">
                         <Form.Label>Date of birth</Form.Label>
-                        <Form.Control
+                        <input
+                          type="date"
+                          class="form-control"
                           name="dateOfBirth"
-                          placeholder="MM/dd/YYYY: 03/23/2023"
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          Please input a date of birth.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                     <Col md="6">
@@ -114,6 +135,9 @@ const Passenger = () => {
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          Please input a nation.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -127,6 +151,9 @@ const Passenger = () => {
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          Please input a provide nation.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
 
@@ -138,17 +165,26 @@ const Passenger = () => {
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
+                        <Form.Control.Feedback type="invalid">
+                          Please input a identityCard.
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
                     <Form.Group as={Col} controlId="formGridZip">
                       <Form.Label>ExpDate</Form.Label>
-                      <Form.Control
+                      <input
+                        type="month"
+                        class="form-control"
                         name="expDate"
+                        format="mm-yyyy"
                         onChange={(event) => handleFormChange(index, event)}
                         required
                       />
+                      <Form.Control.Feedback type="invalid">
+                        Please input a exp date.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
                 </Card.Body>
@@ -156,7 +192,7 @@ const Passenger = () => {
             </Row>
           );
         })}
-      </form>
+      </Form>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import { Container, Card, Row, Col } from "react-bootstrap";
+import { Container, Card, Row, Col, Form, FormGroup } from "react-bootstrap";
 const err = "Error has occured";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../states/app-context";
@@ -28,10 +28,20 @@ const ContactForm = () => {
       },
     });
   };
+  const [validated, setValidated] = useState(false);
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
+    setValidated(true);
+  };
+  console.log(conFom);
   return (
     <Container className="w-75 p-3 mb-2 text-dark">
-      <form>
+      <Form noValidate validated={validated} onBlur={handleSubmit}>
         {/* First Name form   */}
         <Card
           style={{
@@ -43,84 +53,111 @@ const ContactForm = () => {
 
             <Row>
               <Col md="6">
-                <label className="form-label" htmlFor="FirstName">
-                  First Name
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="firstName"
-                  id="FirstName"
-                  onChange={handleChange}
-                  required
-                />
+                <Form.Group>
+                  <label className="form-label" htmlFor="FirstName">
+                    First Name
+                  </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="firstName"
+                    id="FirstName"
+                    onChange={handleChange}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please input a firstName.
+                  </Form.Control.Feedback>
+                </Form.Group>
               </Col>
 
               <Col md="6">
                 {/* Middle Name form   */}
-
-                <label className="form-label" htmlFor="MiddleName">
-                  Middle Name
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="middleName"
-                  id="MiddleName"
-                  onChange={handleChange}
-                  required
-                />
+                <FormGroup>
+                  <label className="form-label" htmlFor="MiddleName">
+                    Middle Name
+                  </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="middleName"
+                    id="MiddleName"
+                    onChange={handleChange}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please input a middleName.
+                  </Form.Control.Feedback>
+                </FormGroup>
               </Col>
             </Row>
 
             {/* Last Name form   */}
             <Row>
               <Col md="6">
-                <label className="form-label" htmlFor="LastName">
-                  Last Name
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="lastName"
-                  id="LastName"
-                  onChange={handleChange}
-                  required
-                />
+                <FormGroup>
+                  <label className="form-label" htmlFor="LastName">
+                    Last Name
+                  </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="lastName"
+                    id="LastName"
+                    onChange={handleChange}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please input a lastName.
+                  </Form.Control.Feedback>
+                </FormGroup>
               </Col>
 
               <Col md="6">
-                <label className="form-label" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className="form-control"
-                  type="email"
-                  name="email"
-                  pattern=".+@gmail\.com"
-                  onChange={handleChange}
-                  id="Email"
-                  required
-                />
+                <FormGroup>
+                  <label className="form-label" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    className="form-control"
+                    type="email"
+                    name="email"
+                    pattern=".+@gmail\.com"
+                    onChange={handleChange}
+                    id="Email"
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please input a Email.
+                  </Form.Control.Feedback>
+                </FormGroup>
               </Col>
             </Row>
-
-            <div className="mb-3">
-              <label className="form-label" htmlFor="Phone">
-                Phone Number
-              </label>
-              <input
-                className="form-control"
-                type="tel"
-                name="phoneNumber"
-                id="PhoneNumber"
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <Row>
+              <Col md="6">
+                <FormGroup>
+                  <label className="form-label" htmlFor="Phone">
+                    Phone Number
+                  </label>
+                  <input
+                    className="form-control"
+                    type="tel"
+                    name="phoneNumber"
+                    id="PhoneNumber"
+                    pattern="0+.\"
+                    maxLength={10}
+                    onChange={handleChange}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please input a Phone Number.
+                  </Form.Control.Feedback>
+                </FormGroup>
+              </Col>
+            </Row>
           </Card.Body>
         </Card>
-      </form>
+      </Form>
     </Container>
   );
 };
