@@ -66,7 +66,7 @@ const ListSearch = () => {
                         />
                       </Col>
                       <Col md="6" className="text-center">
-                        <h5>VietName AirLine: {data.aircraftModel}</h5>
+                        <h5>VietNam AirLine: {data.aircraftModel}</h5>
                         <div className="mb-0 ">
                           <span>{data.departAirport}</span>
                           <span className="text-primary"> •-------• </span>

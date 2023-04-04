@@ -84,6 +84,7 @@ const Passenger = () => {
                         <Form.Control
                           name="firstName"
                           type="text"
+                          pattern="[a-z,A-Z,ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹế, ' ']+"
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />
@@ -99,6 +100,7 @@ const Passenger = () => {
                         <Form.Control
                           name="lastName"
                           type="text"
+                          pattern="[a-z,A-Z,ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹế, ' ']+"
                           onChange={(event) => handleFormChange(index, event)}
                           required
                         />

@@ -63,6 +63,7 @@ const ContactForm = () => {
                     name="firstName"
                     id="FirstName"
                     onChange={handleChange}
+                    pattern="[a-z,A-Z,ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹế, ' ']+"
                     required
                   />
                   <Form.Control.Feedback type="invalid">
@@ -83,6 +84,7 @@ const ContactForm = () => {
                     name="middleName"
                     id="MiddleName"
                     onChange={handleChange}
+                    pattern="[a-z,A-Z,ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹế, ' ']+"
                     required
                   />
                   <Form.Control.Feedback type="invalid">
@@ -105,6 +107,7 @@ const ContactForm = () => {
                     name="lastName"
                     id="LastName"
                     onChange={handleChange}
+                    pattern="[a-z,A-Z,ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ ưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹế, ' ']+"
                     required
                   />
                   <Form.Control.Feedback type="invalid">
@@ -144,7 +147,7 @@ const ContactForm = () => {
                     type="tel"
                     name="phoneNumber"
                     id="PhoneNumber"
-                    pattern="0+.\"
+                    pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
                     maxLength={10}
                     onChange={handleChange}
                     required
