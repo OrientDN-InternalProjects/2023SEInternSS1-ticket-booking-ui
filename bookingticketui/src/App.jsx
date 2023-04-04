@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "./components/navbar/navbar";
 import Ticket from "./components/ticket-form/ticket-form";
 import SuccessPage from "./pages/success-page/success-page";
+import Login from "./components/login-form/login";
 const App = () => {
   return (
     <div className="App">
@@ -29,11 +30,8 @@ const App = () => {
           path="/passenger-form/:id/:seattype"
           element={<PassengerPage />}
         />
-        <Route
-          index
-          path="/success"
-          element={<SuccessPage />}
-        />
+        <Route index path="/success" element={<SuccessPage />} />
+        <Route index path="/login" element={<Login />} />
       </Routes>
       <ToastContainer />
     </div>

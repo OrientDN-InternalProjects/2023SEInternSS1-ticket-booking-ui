@@ -24,7 +24,7 @@ const Navbar = () => {
               <a href="/list-flight">List Flight</a>
             </li>
             <li>
-              <a href="#">Sign In</a>
+              <a href="/login">Sign In</a>
             </li>
             <li>
               <a href="/sign-up">Sign Up</a>

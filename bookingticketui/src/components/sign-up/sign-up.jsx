@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import {
   createAuthenticateAPIEndpoint,
   ENDPOINTS,
@@ -90,125 +91,247 @@ const SignUpForm = () => {
     }
 
     if (response.data.result?.status == true) {
-      // We intent to redirect to the login page
-      // this block will be added after finish login page
     } else {
       displayAlert(response.data.result?.message, "error");
     }
   };
 
   return (
+    // <div>
+    //   <div className="signup-container">
+    //     <h1 id="contactheader">SIGN UP FORM</h1>
+
+    //     <div
+    //       style={{
+    //         display: "flex",
+    //         justifyContent: "center",
+    //       }}
+    //     >
+    //       <form onSubmit={submitForm}>
+    //         {/* First Name form   */}
+    //         <div className="mb-3">
+    //           <label className="form-label" htmlFor="FirstName">
+    //             First Name
+    //           </label>
+    //           <input
+    //             className="form-control"
+    //             type="text"
+    //             name="firstName"
+    //             id="firstName"
+    //             value={conForm.values.firstName}
+    //             onChange={conForm.handleChange}
+    //             required
+    //           />
+    //           <span>{conForm.errors.firstName}</span>
+    //         </div>
+
+    //         {/* Last Name form   */}
+    //         <div className="mb-3">
+    //           <label className="form-label" htmlFor="LastName">
+    //             Last Name
+    //           </label>
+    //           <input
+    //             className="form-control"
+    //             type="text"
+    //             name="lastName"
+    //             id="lastName"
+    //             value={conForm.values.lastName}
+    //             onChange={conForm.handleChange}
+    //             required
+    //           />
+    //           <span>{conForm.errors.lastName}</span>
+    //         </div>
+
+    //         <div className="mb-3">
+    //           <label className="form-label" htmlFor="email">
+    //             Email
+    //           </label>
+    //           <input
+    //             className="form-control"
+    //             type="email"
+    //             name="email"
+    //             id="email"
+    //             value={conForm.values.email}
+    //             onChange={conForm.handleChange}
+    //             required
+    //           />
+    //           <span>{conForm.errors.email}</span>
+    //         </div>
+
+    //         <div className="mb-3">
+    //           <label className="form-label" htmlFor="password">
+    //             Password
+    //           </label>
+    //           <div>
+    //             <input
+    //               style={{
+    //                 borderRadius: "5px",
+    //                 border: "none",
+    //               }}
+    //               className="form-input"
+    //               type="password"
+    //               name="password"
+    //               id="password"
+    //               value={conForm.values.password}
+    //               onChange={conForm.handleChange}
+    //               required
+    //             />
+    //           </div>
+    //           <span>{conForm.errors.password}</span>
+    //         </div>
+
+    //         <div className="mb-3">
+    //           <label className="form-label" htmlFor="confirmPassword">
+    //             Confirm Password
+    //           </label>
+    //           <div>
+    //             <input
+    //               style={{
+    //                 borderRadius: "5px",
+    //                 border: "none",
+    //               }}
+    //               className="form-input"
+    //               type="password"
+    //               name="confirmPassword"
+    //               id="confirmPassword"
+    //               value={conForm.values.confirmPassword}
+    //               onChange={conForm.handleChange}
+    //               required
+    //             />
+    //           </div>
+    //           <span>{conForm.errors.confirmPassword}</span>
+    //         </div>
+
+    //         <button className="btn btn-danger" type="submit">
+    //           {formStatus}
+    //         </button>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </div>
     <div>
-      <div className="signup-container">
-        <h1 id="contactheader">SIGN UP FORM</h1>
+      <Container>
+        <Row className="vh-100 d-flex justify-content-center align-items-center">
+          <Col md={8} lg={6} xs={12}>
+            <div className="border border-2 border-primary"></div>
+            <Card className="shadow px-4">
+              <Card.Body>
+                <div className="mb-3 mt-md-4">
+                  <h2 className="fw-bold mb-2 text-center text-uppercase ">
+                    Logo
+                  </h2>
+                  <div className="mb-3">
+                    <Form onSubmit={submitForm}>
+                      <Form.Group className="mb-3" controlId="FirstName">
+                        <Form.Label className="text-center">
+                          First Name
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter First Name"
+                          className="form-control"
+                          name="firstName"
+                          id="firstName"
+                          value={conForm.values.firstName}
+                          onChange={conForm.handleChange}
+                          required
+                        />
+                        <span>{conForm.errors.firstName}</span>
+                      </Form.Group>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <form onSubmit={submitForm}>
-            {/* First Name form   */}
-            <div className="mb-3">
-              <label className="form-label" htmlFor="FirstName">
-                First Name
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="firstName"
-                id="firstName"
-                value={conForm.values.firstName}
-                onChange={conForm.handleChange}
-                required
-              />
-              <span>{conForm.errors.firstName}</span>
-            </div>
+                      <Form.Group className="mb-3" controlId="LastName">
+                        <Form.Label className="text-center">
+                          Last Name
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Last Name"
+                          className="form-control"
+                          name="lastName"
+                          id="lastName"
+                          value={conForm.values.lastName}
+                          onChange={conForm.handleChange}
+                          required
+                        />
+                        <span>{conForm.errors.lastName}</span>
+                      </Form.Group>
 
-            {/* Last Name form   */}
-            <div className="mb-3">
-              <label className="form-label" htmlFor="LastName">
-                Last Name
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="lastName"
-                id="lastName"
-                value={conForm.values.lastName}
-                onChange={conForm.handleChange}
-                required
-              />
-              <span>{conForm.errors.lastName}</span>
-            </div>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label className="text-center">
+                          Email address
+                        </Form.Label>
+                        <Form.Control
+                          type="email"
+                          placeholder="Enter email"
+                          className="form-control"
+                          name="email"
+                          id="email"
+                          value={conForm.values.email}
+                          onChange={conForm.handleChange}
+                          required
+                        />
+                        <span>{conForm.errors.email}</span>
+                      </Form.Group>
 
-            <div className="mb-3">
-              <label className="form-label" htmlFor="email">
-                Email
-              </label>
-              <input
-                className="form-control"
-                type="email"
-                name="email"
-                id="email"
-                value={conForm.values.email}
-                onChange={conForm.handleChange}
-                required
-              />
-              <span>{conForm.errors.email}</span>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label" htmlFor="password">
-                Password
-              </label>
-              <div>
-                <input
-                  style={{
-                    borderRadius: "5px",
-                    border: "none",
-                  }}
-                  className="form-input"
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={conForm.values.password}
-                  onChange={conForm.handleChange}
-                  required
-                />
-              </div>
-              <span>{conForm.errors.password}</span>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label" htmlFor="confirmPassword">
-                Confirm Password
-              </label>
-              <div>
-                <input
-                  style={{
-                    borderRadius: "5px",
-                    border: "none",
-                  }}
-                  className="form-input"
-                  type="password"
-                  name="confirmPassword"
-                  id="confirmPassword"
-                  value={conForm.values.confirmPassword}
-                  onChange={conForm.handleChange}
-                  required
-                />
-              </div>
-              <span>{conForm.errors.confirmPassword}</span>
-            </div>
-
-            <button className="btn btn-danger" type="submit">
-              {formStatus}
-            </button>
-          </form>
-        </div>
-      </div>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPassword"
+                      >
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Password"
+                          className="form-input"
+                          name="password"
+                          id="password"
+                          value={conForm.values.password}
+                          onChange={conForm.handleChange}
+                          required
+                        />
+                        <span>{conForm.errors.password}</span>
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPassword"
+                      >
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Confirm Password"
+                          className="form-input"
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          value={conForm.values.confirmPassword}
+                          onChange={conForm.handleChange}
+                          required
+                        />
+                        <div>{conForm.errors.confirmPassword}</div>
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicCheckbox"
+                      ></Form.Group>
+                      <div className="d-grid">
+                        <Button variant="primary" type="submit">
+                          Create Account
+                        </Button>
+                      </div>
+                    </Form>
+                    <div className="mt-3">
+                      <p className="mb-0  text-center">
+                        Already have an account??{" "}
+                        <a href="{''}" className="text-primary fw-bold">
+                          Sign In
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
